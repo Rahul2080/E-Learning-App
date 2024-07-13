@@ -12,7 +12,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<String> categories = ["Bussiness", "UI/UX", "Marketing",'SEO'];
+  List<String> categories = ["Bussiness", "UI/UX", "Marketing", 'SEO'];
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,11 @@ class _HomeState extends State<Home> {
                   SizedBox(
                     width: 180.w,
                   ),
-                  GestureDetector(onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Categories()));},
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (_) => Categories()));
+                    },
                     child: Text(
                       'See All',
                       style: GoogleFonts.plusJakartaSans(
@@ -138,26 +142,33 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
-            SizedBox(height: 10.h,),
             SizedBox(
-              height: 260.h,
+              height: 10.h,
+            ),
+            SizedBox(
+              height: 230.h,
               width: double.infinity,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemCount: 20,
                 itemBuilder: (context, position) {
                   return Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 10),
+                    padding: const EdgeInsets.only(left: 20,right: 10),
                     child: Container(
+                      decoration: ShapeDecoration(
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(17),
+                        ),
+                      ),
                       width: 180.w,
                       height: 140.h,
-                      color: Colors.white,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Image.asset("assets/listimg.png"),
                           Padding(
-                            padding: const EdgeInsets.only(left: 10,top: 10),
+                            padding: const EdgeInsets.only(left: 10, top: 10),
                             child: Row(
                               children: [
                                 Text(
@@ -178,7 +189,8 @@ class _HomeState extends State<Home> {
                                   direction: Axis.horizontal,
                                   allowHalfRating: true,
                                   itemCount: 5,
-                                  itemPadding: EdgeInsets.symmetric(horizontal: 1),
+                                  itemPadding:
+                                      EdgeInsets.symmetric(horizontal: 1),
                                   itemBuilder: (context, _) => Icon(
                                     Icons.star,
                                     color: Color(0xFF477B72),
@@ -191,32 +203,32 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 10,top: 5),
+                            padding: const EdgeInsets.only(left: 10, top: 5),
                             child: Text(
                               'UI/UX Design',
                               style: GoogleFonts.plusJakartaSans(
                                 textStyle: TextStyle(
                                   color: Color(0xFF1D1B20),
-                                  fontSize: 16.sp,
+                                  fontSize: 13.sp,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 10,top: 5),
+                            padding: const EdgeInsets.only(left: 10, top: 5),
                             child: Row(
                               children: [
                                 Icon(
                                   Icons.person_outlined,
-                                  size: 24.sp,
+                                  size: 20.sp,
                                 ),
                                 Text(
                                   'Stephen Moris',
                                   style: GoogleFonts.plusJakartaSans(
                                     textStyle: TextStyle(
                                       color: Color(0xFF060302),
-                                      fontSize: 18.sp,
+                                      fontSize: 13.sp,
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
@@ -225,13 +237,13 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 10,top: 5),
+                            padding: const EdgeInsets.only(left: 10, top: 5),
                             child: Text(
                               '\$14.50',
                               style: GoogleFonts.plusJakartaSans(
                                 textStyle: TextStyle(
                                   color: Color(0xFF477B72),
-                                  fontSize: 18.sp,
+                                  fontSize: 13.sp,
                                   fontFamily: 'Plus Jakarta Sans',
                                   fontWeight: FontWeight.w800,
                                 ),
@@ -250,7 +262,6 @@ class _HomeState extends State<Home> {
                 },
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.only(top: 10, left: 10),
               child: Row(
@@ -279,9 +290,11 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
-            SizedBox(height: 10.h,),
             SizedBox(
-              height: 260.h,
+              height: 10.h,
+            ),
+            SizedBox(
+              height: 230.h,
               width: double.infinity,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
@@ -292,13 +305,18 @@ class _HomeState extends State<Home> {
                     child: Container(
                       width: 180.w,
                       height: 160.h,
-                      color: Colors.white,
+                      decoration: ShapeDecoration(
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Image.asset("assets/listimg.png"),
                           Padding(
-                            padding: const EdgeInsets.only(left: 10,top: 10),
+                            padding: const EdgeInsets.only(left: 10, top: 10),
                             child: Row(
                               children: [
                                 Text(
@@ -319,7 +337,8 @@ class _HomeState extends State<Home> {
                                   direction: Axis.horizontal,
                                   allowHalfRating: true,
                                   itemCount: 5,
-                                  itemPadding: EdgeInsets.symmetric(horizontal: 1),
+                                  itemPadding:
+                                      EdgeInsets.symmetric(horizontal: 1),
                                   itemBuilder: (context, _) => Icon(
                                     Icons.star,
                                     color: Color(0xFF477B72),
@@ -332,32 +351,32 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 10,top: 5),
+                            padding: const EdgeInsets.only(left: 10, top: 5),
                             child: Text(
                               'UI/UX Design',
                               style: GoogleFonts.plusJakartaSans(
                                 textStyle: TextStyle(
                                   color: Color(0xFF1D1B20),
-                                  fontSize: 16.sp,
+                                  fontSize: 13.sp,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 10,top: 5),
+                            padding: const EdgeInsets.only(left: 10, top: 5),
                             child: Row(
                               children: [
                                 Icon(
                                   Icons.person_outlined,
-                                  size: 24.sp,
+                                  size: 20.sp,
                                 ),
                                 Text(
                                   'Stephen Moris',
                                   style: GoogleFonts.plusJakartaSans(
                                     textStyle: TextStyle(
                                       color: Color(0xFF060302),
-                                      fontSize: 18.sp,
+                                      fontSize: 13.sp,
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
@@ -366,13 +385,13 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 10,top: 5),
+                            padding: const EdgeInsets.only(left: 10, top: 5),
                             child: Text(
                               '\$14.50',
                               style: GoogleFonts.plusJakartaSans(
                                 textStyle: TextStyle(
                                   color: Color(0xFF477B72),
-                                  fontSize: 18.sp,
+                                  fontSize: 13.sp,
                                   fontFamily: 'Plus Jakarta Sans',
                                   fontWeight: FontWeight.w800,
                                 ),
@@ -418,9 +437,12 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-            ), SizedBox(height: 10.h,),
+            ),
             SizedBox(
-              height: 260.h,
+              height: 10.h,
+            ),
+            SizedBox(
+              height: 230.h,
               width: double.infinity,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
@@ -431,13 +453,17 @@ class _HomeState extends State<Home> {
                     child: Container(
                       width: 180.w,
                       height: 160.h,
-                      color: Colors.white,
+                      decoration: ShapeDecoration( color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Image.asset("assets/listimg.png"),
                           Padding(
-                            padding: const EdgeInsets.only(left: 10,top: 10),
+                            padding: const EdgeInsets.only(left: 10, top: 10),
                             child: Row(
                               children: [
                                 Text(
@@ -458,7 +484,8 @@ class _HomeState extends State<Home> {
                                   direction: Axis.horizontal,
                                   allowHalfRating: true,
                                   itemCount: 5,
-                                  itemPadding: EdgeInsets.symmetric(horizontal: 1),
+                                  itemPadding:
+                                      EdgeInsets.symmetric(horizontal: 1),
                                   itemBuilder: (context, _) => Icon(
                                     Icons.star,
                                     color: Color(0xFF477B72),
@@ -471,32 +498,32 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 10,top: 5),
+                            padding: const EdgeInsets.only(left: 10, top: 5),
                             child: Text(
                               'UI/UX Design',
                               style: GoogleFonts.plusJakartaSans(
                                 textStyle: TextStyle(
                                   color: Color(0xFF1D1B20),
-                                  fontSize: 16.sp,
+                                  fontSize: 13.sp,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 10,top: 5),
+                            padding: const EdgeInsets.only(left: 10, top: 5),
                             child: Row(
                               children: [
                                 Icon(
                                   Icons.person_outlined,
-                                  size: 24.sp,
+                                  size: 20.sp,
                                 ),
                                 Text(
                                   'Stephen Moris',
                                   style: GoogleFonts.plusJakartaSans(
                                     textStyle: TextStyle(
                                       color: Color(0xFF060302),
-                                      fontSize: 18.sp,
+                                      fontSize: 13.sp,
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
@@ -505,13 +532,13 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 10,top: 5),
+                            padding: const EdgeInsets.only(left: 10, top: 5),
                             child: Text(
                               '\$14.50',
                               style: GoogleFonts.plusJakartaSans(
                                 textStyle: TextStyle(
                                   color: Color(0xFF477B72),
-                                  fontSize: 18.sp,
+                                  fontSize: 13.sp,
                                   fontFamily: 'Plus Jakarta Sans',
                                   fontWeight: FontWeight.w800,
                                 ),
@@ -533,7 +560,6 @@ class _HomeState extends State<Home> {
             SizedBox(height: 10.h),
           ],
         ),
-
       ),
     );
   }
