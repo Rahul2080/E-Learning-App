@@ -38,27 +38,27 @@ class _OnboardState extends State<Onboard> {
       ),
       pages: [
         PageViewModel(
-          title: "Fractional shares",
+          title:  'Certification and Badges',
           body:
-              "Instead of having to buy an entire share, invest any amount you want.",
+          'Earn a certificate after completion of            every course',
           image: Image.asset('assets/sliderimg1.png'),
         ),
         PageViewModel(
-          title: "Fractional shares",
+          title: " 'Progress Tracking",
           body:
-              "Instead of having to buy an entire share, invest any amount you want.",
+          'Check your Progress of every course',
           image: Image.asset('assets/sliderimg2.png'),
         ),
         PageViewModel(
-          title: "Learn as you go",
+          title: "Offline Access",
           body:
-              "Download the Stockpile app and master the market with our mini-lesson.",
+              "Make your course available offline",
           image: Image.asset('assets/sliderimg3.png'),
         ),
         PageViewModel(
-          title: "Kids and teens",
+          title: "Course Catalog",
           body:
-              "Kids and teens can track their stocks 24/7 and place trades that you approve.",
+              "View in which courses you are enrolled",
           image: Image.asset('assets/sliderimg4.png'),
         ),
       ],

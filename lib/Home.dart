@@ -19,9 +19,12 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          Icon(
-            Icons.shopping_cart_outlined,
-            size: 30.sp,
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: Icon(
+              Icons.shopping_cart_outlined,
+              size: 30.sp,
+            ),
           )
         ],
         automaticallyImplyLeading: false,
@@ -48,7 +51,7 @@ class _HomeState extends State<Home> {
                     style: GoogleFonts.plusJakartaSans(
                       textStyle: TextStyle(
                         color: Color(0xFF1D1B20),
-                        fontSize: 20.sp,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -123,12 +126,12 @@ class _HomeState extends State<Home> {
                     style: GoogleFonts.plusJakartaSans(
                       textStyle: TextStyle(
                         color: Color(0xFF1D1B20),
-                        fontSize: 18.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
-                  SizedBox(width: 60.w),
+                  SizedBox(width: 85.w),
                   Text(
                     'See All',
                     style: GoogleFonts.plusJakartaSans(
@@ -181,11 +184,11 @@ class _HomeState extends State<Home> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(width: 10.h),
+                                SizedBox(width: 7.h),
                                 RatingBar.builder(
                                   initialRating: 3,
                                   minRating: 1,
-                                  itemSize: 20.sp,
+                                  itemSize: 16.sp,
                                   direction: Axis.horizontal,
                                   allowHalfRating: true,
                                   itemCount: 5,
@@ -271,12 +274,12 @@ class _HomeState extends State<Home> {
                     style: GoogleFonts.plusJakartaSans(
                       textStyle: TextStyle(
                         color: Color(0xFF1D1B20),
-                        fontSize: 18.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
-                  SizedBox(width: 136.w),
+                  SizedBox(width: 150.w),
                   Text(
                     'See All',
                     style: GoogleFonts.plusJakartaSans(
@@ -333,7 +336,7 @@ class _HomeState extends State<Home> {
                                 RatingBar.builder(
                                   initialRating: 3,
                                   minRating: 1,
-                                  itemSize: 20.sp,
+                                  itemSize: 17.sp,
                                   direction: Axis.horizontal,
                                   allowHalfRating: true,
                                   itemCount: 5,
@@ -419,12 +422,12 @@ class _HomeState extends State<Home> {
                     style: GoogleFonts.plusJakartaSans(
                       textStyle: TextStyle(
                         color: Color(0xFF1D1B20),
-                        fontSize: 18.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
-                  SizedBox(width: 195.w),
+                  SizedBox(width: 205.w),
                   Text(
                     'See All',
                     style: GoogleFonts.plusJakartaSans(
@@ -480,7 +483,7 @@ class _HomeState extends State<Home> {
                                 RatingBar.builder(
                                   initialRating: 3,
                                   minRating: 1,
-                                  itemSize: 20.sp,
+                                  itemSize: 17.sp,
                                   direction: Axis.horizontal,
                                   allowHalfRating: true,
                                   itemCount: 5,

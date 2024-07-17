@@ -11,95 +11,160 @@ class Bookmark extends StatefulWidget {
 }
 
 class _BookmarkState extends State<Bookmark> {
+  List<String> categories = ["Bussiness", "UI/UX", "Marketing", 'SEO'];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child:  SingleChildScrollView(
-      child: Column(
-        children: [
-          SizedBox(height: 800.h,
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: Icon(
+              Icons.shopping_cart_outlined,
+              size: 30.sp,
+            ),
+          )
+        ],
+        automaticallyImplyLeading: false,
+        title: Text(
+          'Courses',
+          style: GoogleFonts.plusJakartaSans(
+            textStyle: TextStyle(
+              color: Color(0xFF1D1B20),
+              fontSize: 24.sp,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+      ),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+          Padding(
+          padding: const EdgeInsets.only(left: 10, top: 10),
+          child: SizedBox(
+            height: 40.h,
             child: ListView.separated(
-              scrollDirection: Axis.vertical,
-              itemCount: 20,
+              separatorBuilder: (BuildContext context, int index) {
+                return SizedBox(
+                  width: 10.w,
+                );
+              },
+              itemCount: categories.length,
+              scrollDirection: Axis.horizontal,
               itemBuilder: (context, position) {
-                return Padding(
-                  padding: const EdgeInsets.only(left: 20,right: 10),
-                  child: Container(
-                    decoration: ShapeDecoration(
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(17),
-                      ),
+                return Container(
+                  decoration: ShapeDecoration(
+                    color: Color(0xFFC6D6D3),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                    width: 180.w,
-                    height: 140.h,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox( width: 180.w,height: 180.h,
-                            child: Image.asset("assets/listimg.png")),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, top: 10),
-                          child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10, top: 5),
-                                child: Text(
-                                  'UI/UX Design',
-                                  style: GoogleFonts.plusJakartaSans(
-                                    textStyle: TextStyle(
-                                      color: Color(0xFF1D1B20),
-                                      fontSize: 13.sp,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10, top: 5),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.person_outlined,
-                                      size: 20.sp,
-                                    ),
-                                    Text(
-                                      'Stephen Moris',
-                                      style: GoogleFonts.plusJakartaSans(
-                                        textStyle: TextStyle(
-                                          color: Color(0xFF060302),
-                                          fontSize: 13.sp,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-
-
-
-
-                            ],
-                          ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      categories[position],
+                      style: GoogleFonts.plusJakartaSans(
+                        textStyle: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15.sp,
+                          fontFamily: 'Plus Jakarta Sans',
+                          fontWeight: FontWeight.w500,
                         ),
-
-                      ],
+                      ),
                     ),
                   ),
                 );
               },
-              separatorBuilder: (context, position) {
-                return SizedBox(
-                  width: 20.w,
-                );
-              },
             ),
           ),
-
-        ],
+        ),
+              SizedBox(height: 10.h),
+              SizedBox(
+                height: 800.h,
+                child: ListView.separated(
+                  scrollDirection: Axis.vertical,
+                  itemCount: 20,
+                  itemBuilder: (context, position) {
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 10),
+                      child: Container(
+                        decoration: ShapeDecoration(
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(17),
+                          ),
+                        ),
+                        width: 180.w,
+                        height: 140.h,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                                width: 180.w,
+                                height: 180.h,
+                                child: Image.asset("assets/listimg.png")),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10, top: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.only(left: 10, top: 5),
+                                    child: Text(
+                                      'UI/UX Design',
+                                      style: GoogleFonts.plusJakartaSans(
+                                        textStyle: TextStyle(
+                                          color: Color(0xFF1D1B20),
+                                          fontSize: 13.sp,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.only(left: 10, top: 5),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.person_outlined,
+                                          size: 20.sp,
+                                        ),
+                                        Text(
+                                          'Stephen Moris',
+                                          style: GoogleFonts.plusJakartaSans(
+                                            textStyle: TextStyle(
+                                              color: Color(0xFF060302),
+                                              fontSize: 13.sp,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, position) {
+                    return SizedBox(
+                      width: 20.w,
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
-
-    ),),);
+    );
   }
 }
