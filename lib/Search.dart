@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'Cart.dart';
+
 class Search extends StatefulWidget {
   const Search({super.key});
 
@@ -10,6 +12,9 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
+  List<String> txt=['helo','hi'];
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,9 +44,11 @@ class _SearchState extends State<Search> {
                   ),
                 ),
                 SizedBox(width: 20.w),
-                Icon(
-                  Icons.shopping_cart_outlined,
-                  size: 30.sp,
+                GestureDetector(onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (_)=> Cart()));},
+                  child: Icon(
+                    Icons.shopping_cart_outlined,
+                    size: 30.sp,
+                  ),
                 )
               ],
             ),
@@ -62,11 +69,13 @@ class _SearchState extends State<Search> {
         ),
         Padding(
           padding: const EdgeInsets.only(left: 20,top: 10),
-          child: FilterChip(
-            label: Text("text"),
-            backgroundColor: Colors.transparent,
-            shape: StadiumBorder(side: BorderSide()),
-            onSelected: (bool value) {print("selected");},
+          child: Wrap(
+            children:[ FilterChip(
+              label: Text(txt[0]),
+              backgroundColor: Colors.transparent,
+              shape: StadiumBorder(side: BorderSide()),
+              onSelected: (bool value) {print("selected");},
+            ), ]
           ),
         ),
         Padding(

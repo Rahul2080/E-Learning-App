@@ -1,4 +1,6 @@
+import 'package:ecommerce/Cart.dart';
 import 'package:ecommerce/Categories.dart';
+import 'package:ecommerce/Video.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,9 +23,14 @@ class _HomeState extends State<Home> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10),
-            child: Icon(
-              Icons.shopping_cart_outlined,
-              size: 30.sp,
+            child: GestureDetector(onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => Cart()));
+            },
+              child: Icon(
+                Icons.shopping_cart_outlined,
+                size: 30.sp,
+              ),
             ),
           )
         ],
@@ -156,106 +163,112 @@ class _HomeState extends State<Home> {
                 itemCount: 20,
                 itemBuilder: (context, position) {
                   return Padding(
-                    padding: const EdgeInsets.only(left: 20,right: 10),
-                    child: Container(
+                    padding: const EdgeInsets.only(left: 20, right: 10),
+                    child: GestureDetector(onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (_) => Video()));
+                    },
+                      child: Container(
                       decoration: ShapeDecoration(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(17),
-                        ),
-                      ),
-                      width: 180.w,
-                      height: 140.h,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image.asset("assets/listimg.png"),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10, top: 10),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "4.5",
-                                  style: GoogleFonts.plusJakartaSans(
-                                    textStyle: TextStyle(
-                                      color: Color(0xFF1D1B20),
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 7.h),
-                                RatingBar.builder(
-                                  initialRating: 3,
-                                  minRating: 1,
-                                  itemSize: 16.sp,
-                                  direction: Axis.horizontal,
-                                  allowHalfRating: true,
-                                  itemCount: 5,
-                                  itemPadding:
-                                      EdgeInsets.symmetric(horizontal: 1),
-                                  itemBuilder: (context, _) => Icon(
-                                    Icons.star,
-                                    color: Color(0xFF477B72),
-                                  ),
-                                  onRatingUpdate: (rating) {
-                                    print(rating);
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10, top: 5),
-                            child: Text(
-                              'UI/UX Design',
-                              style: GoogleFonts.plusJakartaSans(
-                                textStyle: TextStyle(
-                                  color: Color(0xFF1D1B20),
-                                  fontSize: 13.sp,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10, top: 5),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.person_outlined,
-                                  size: 20.sp,
-                                ),
-                                Text(
-                                  'Stephen Moris',
-                                  style: GoogleFonts.plusJakartaSans(
-                                    textStyle: TextStyle(
-                                      color: Color(0xFF060302),
-                                      fontSize: 13.sp,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10, top: 5),
-                            child: Text(
-                              '\$14.50',
-                              style: GoogleFonts.plusJakartaSans(
-                                textStyle: TextStyle(
-                                  color: Color(0xFF477B72),
-                                  fontSize: 13.sp,
-                                  fontFamily: 'Plus Jakarta Sans',
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(17),
                       ),
                     ),
+                    width: 180.w,
+                    height: 140.h,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset("assets/listimg.png"),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, top: 10),
+                          child: Row(
+                            children: [
+                              Text(
+                                "4.5",
+                                style: GoogleFonts.plusJakartaSans(
+                                  textStyle: TextStyle(
+                                    color: Color(0xFF1D1B20),
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 7.h),
+                              RatingBar.builder(
+                                initialRating: 3,
+                                minRating: 1,
+                                itemSize: 16.sp,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                itemPadding:
+                                EdgeInsets.symmetric(horizontal: 1),
+                                itemBuilder: (context, _) =>
+                                    Icon(
+                                      Icons.star,
+                                      color: Color(0xFF477B72),
+                                    ),
+                                onRatingUpdate: (rating) {
+                                  print(rating);
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, top: 5),
+                          child: Text(
+                            'UI/UX Design',
+                            style: GoogleFonts.plusJakartaSans(
+                              textStyle: TextStyle(
+                                color: Color(0xFF1D1B20),
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, top: 5),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.person_outlined,
+                                size: 20.sp,
+                              ),
+                              Text(
+                                'Stephen Moris',
+                                style: GoogleFonts.plusJakartaSans(
+                                  textStyle: TextStyle(
+                                    color: Color(0xFF060302),
+                                    fontSize: 13.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, top: 5),
+                          child: Text(
+                            '\$14.50',
+                            style: GoogleFonts.plusJakartaSans(
+                              textStyle: TextStyle(
+                                color: Color(0xFF477B72),
+                                fontSize: 13.sp,
+                                fontFamily: 'Plus Jakarta Sans',
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),)
+                  ,
                   );
                 },
                 separatorBuilder: (context, position) {
@@ -305,103 +318,109 @@ class _HomeState extends State<Home> {
                 itemBuilder: (context, position) {
                   return Padding(
                     padding: const EdgeInsets.only(left: 20, right: 10),
-                    child: Container(
-                      width: 180.w,
-                      height: 160.h,
-                      decoration: ShapeDecoration(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                    child: GestureDetector(onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (_) => Video()));
+                    },
+                      child: Container(
+                        width: 180.w,
+                        height: 160.h,
+                        decoration: ShapeDecoration(
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image.asset("assets/listimg.png"),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10, top: 10),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "4.5",
-                                  style: GoogleFonts.plusJakartaSans(
-                                    textStyle: TextStyle(
-                                      color: Color(0xFF1D1B20),
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w700,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Image.asset("assets/listimg.png"),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10, top: 10),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "4.5",
+                                    style: GoogleFonts.plusJakartaSans(
+                                      textStyle: TextStyle(
+                                        color: Color(0xFF1D1B20),
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
                                   ),
+                                  SizedBox(width: 10.h),
+                                  RatingBar.builder(
+                                    initialRating: 3,
+                                    minRating: 1,
+                                    itemSize: 17.sp,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemCount: 5,
+                                    itemPadding:
+                                    EdgeInsets.symmetric(horizontal: 1),
+                                    itemBuilder: (context, _) =>
+                                        Icon(
+                                          Icons.star,
+                                          color: Color(0xFF477B72),
+                                        ),
+                                    onRatingUpdate: (rating) {
+                                      print(rating);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10, top: 5),
+                              child: Text(
+                                'UI/UX Design',
+                                style: GoogleFonts.plusJakartaSans(
+                                  textStyle: TextStyle(
+                                    color: Color(0xFF1D1B20),
+                                    fontSize: 13.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
-                                SizedBox(width: 10.h),
-                                RatingBar.builder(
-                                  initialRating: 3,
-                                  minRating: 1,
-                                  itemSize: 17.sp,
-                                  direction: Axis.horizontal,
-                                  allowHalfRating: true,
-                                  itemCount: 5,
-                                  itemPadding:
-                                      EdgeInsets.symmetric(horizontal: 1),
-                                  itemBuilder: (context, _) => Icon(
-                                    Icons.star,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10, top: 5),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.person_outlined,
+                                    size: 20.sp,
+                                  ),
+                                  Text(
+                                    'Stephen Moris',
+                                    style: GoogleFonts.plusJakartaSans(
+                                      textStyle: TextStyle(
+                                        color: Color(0xFF060302),
+                                        fontSize: 13.sp,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10, top: 5),
+                              child: Text(
+                                '\$14.50',
+                                style: GoogleFonts.plusJakartaSans(
+                                  textStyle: TextStyle(
                                     color: Color(0xFF477B72),
+                                    fontSize: 13.sp,
+                                    fontFamily: 'Plus Jakarta Sans',
+                                    fontWeight: FontWeight.w800,
                                   ),
-                                  onRatingUpdate: (rating) {
-                                    print(rating);
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10, top: 5),
-                            child: Text(
-                              'UI/UX Design',
-                              style: GoogleFonts.plusJakartaSans(
-                                textStyle: TextStyle(
-                                  color: Color(0xFF1D1B20),
-                                  fontSize: 13.sp,
-                                  fontWeight: FontWeight.w700,
                                 ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10, top: 5),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.person_outlined,
-                                  size: 20.sp,
-                                ),
-                                Text(
-                                  'Stephen Moris',
-                                  style: GoogleFonts.plusJakartaSans(
-                                    textStyle: TextStyle(
-                                      color: Color(0xFF060302),
-                                      fontSize: 13.sp,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10, top: 5),
-                            child: Text(
-                              '\$14.50',
-                              style: GoogleFonts.plusJakartaSans(
-                                textStyle: TextStyle(
-                                  color: Color(0xFF477B72),
-                                  fontSize: 13.sp,
-                                  fontFamily: 'Plus Jakarta Sans',
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   );
@@ -453,102 +472,108 @@ class _HomeState extends State<Home> {
                 itemBuilder: (context, position) {
                   return Padding(
                     padding: const EdgeInsets.only(left: 20, right: 10),
-                    child: Container(
-                      width: 180.w,
-                      height: 160.h,
-                      decoration: ShapeDecoration( color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                    child: GestureDetector(onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (_) => Video()));
+                    },
+                      child: Container(
+                        width: 180.w,
+                        height: 160.h,
+                        decoration: ShapeDecoration(color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image.asset("assets/listimg.png"),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10, top: 10),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "4.5",
-                                  style: GoogleFonts.plusJakartaSans(
-                                    textStyle: TextStyle(
-                                      color: Color(0xFF1D1B20),
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w700,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Image.asset("assets/listimg.png"),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10, top: 10),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "4.5",
+                                    style: GoogleFonts.plusJakartaSans(
+                                      textStyle: TextStyle(
+                                        color: Color(0xFF1D1B20),
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
                                   ),
+                                  SizedBox(width: 10.h),
+                                  RatingBar.builder(
+                                    initialRating: 3,
+                                    minRating: 1,
+                                    itemSize: 17.sp,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemCount: 5,
+                                    itemPadding:
+                                    EdgeInsets.symmetric(horizontal: 1),
+                                    itemBuilder: (context, _) =>
+                                        Icon(
+                                          Icons.star,
+                                          color: Color(0xFF477B72),
+                                        ),
+                                    onRatingUpdate: (rating) {
+                                      print(rating);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10, top: 5),
+                              child: Text(
+                                'UI/UX Design',
+                                style: GoogleFonts.plusJakartaSans(
+                                  textStyle: TextStyle(
+                                    color: Color(0xFF1D1B20),
+                                    fontSize: 13.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
-                                SizedBox(width: 10.h),
-                                RatingBar.builder(
-                                  initialRating: 3,
-                                  minRating: 1,
-                                  itemSize: 17.sp,
-                                  direction: Axis.horizontal,
-                                  allowHalfRating: true,
-                                  itemCount: 5,
-                                  itemPadding:
-                                      EdgeInsets.symmetric(horizontal: 1),
-                                  itemBuilder: (context, _) => Icon(
-                                    Icons.star,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10, top: 5),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.person_outlined,
+                                    size: 20.sp,
+                                  ),
+                                  Text(
+                                    'Stephen Moris',
+                                    style: GoogleFonts.plusJakartaSans(
+                                      textStyle: TextStyle(
+                                        color: Color(0xFF060302),
+                                        fontSize: 13.sp,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10, top: 5),
+                              child: Text(
+                                '\$14.50',
+                                style: GoogleFonts.plusJakartaSans(
+                                  textStyle: TextStyle(
                                     color: Color(0xFF477B72),
+                                    fontSize: 13.sp,
+                                    fontFamily: 'Plus Jakarta Sans',
+                                    fontWeight: FontWeight.w800,
                                   ),
-                                  onRatingUpdate: (rating) {
-                                    print(rating);
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10, top: 5),
-                            child: Text(
-                              'UI/UX Design',
-                              style: GoogleFonts.plusJakartaSans(
-                                textStyle: TextStyle(
-                                  color: Color(0xFF1D1B20),
-                                  fontSize: 13.sp,
-                                  fontWeight: FontWeight.w700,
                                 ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10, top: 5),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.person_outlined,
-                                  size: 20.sp,
-                                ),
-                                Text(
-                                  'Stephen Moris',
-                                  style: GoogleFonts.plusJakartaSans(
-                                    textStyle: TextStyle(
-                                      color: Color(0xFF060302),
-                                      fontSize: 13.sp,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10, top: 5),
-                            child: Text(
-                              '\$14.50',
-                              style: GoogleFonts.plusJakartaSans(
-                                textStyle: TextStyle(
-                                  color: Color(0xFF477B72),
-                                  fontSize: 13.sp,
-                                  fontFamily: 'Plus Jakarta Sans',
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   );

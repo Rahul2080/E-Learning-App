@@ -1,6 +1,9 @@
+import 'package:ecommerce/Signin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'Cart.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -17,9 +20,11 @@ class _ProfileState extends State<Profile> {
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 10),
-              child: Icon(
-                Icons.shopping_cart_outlined,
-                size: 30.sp,
+              child: GestureDetector(onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (_)=> Cart()));},
+                child: Icon(
+                  Icons.shopping_cart_outlined,
+                  size: 30.sp,
+                ),
               ),
             )
           ],
@@ -198,32 +203,37 @@ SizedBox(width: 256.w),
                 ],
               ),
             ), SizedBox(height: 20.h),
-            Container(
-              width: 340.w,
-              height: 50.h,
-              decoration: ShapeDecoration(
-                color: Color(0xFFC6D6D3),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6)),
-              ),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Text(
-                      'Logout',
-                      style: GoogleFonts.plusJakartaSans(
-                        textStyle: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.w500,
+            GestureDetector(onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (_) => Signin()));
+            },
+              child: Container(
+                width: 340.w,
+                height: 50.h,
+                decoration: ShapeDecoration(
+                  color: Color(0xFFC6D6D3),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6)),
+                ),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Text(
+                        'Logout',
+                        style: GoogleFonts.plusJakartaSans(
+                          textStyle: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: 230.w),
-                  Icon(Icons.double_arrow)
-                ],
+                    SizedBox(width: 230.w),
+                    Icon(Icons.double_arrow)
+                  ],
+                ),
               ),
             ),
 

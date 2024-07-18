@@ -26,9 +26,9 @@ class _OnboardState extends State<Onboard> {
     return IntroductionScreen(
       key: introKey,
       globalBackgroundColor: Colors.white,
-      allowImplicitScrolling: true,
+      allowImplicitScrolling: false,
       autoScrollDuration: 3000,
-      infiniteAutoScroll: true,
+      infiniteAutoScroll: false,
       globalHeader: Align(
         alignment: Alignment.topRight,
       ),
@@ -70,7 +70,7 @@ class _OnboardState extends State<Onboard> {
       nextFlex: 0,
       showBackButton: false,
       back: const Icon(Icons.arrow_back),
-      skip: const Text('Skip', style: TextStyle(fontWeight: FontWeight.w600)),
+      skip: const Text('Skip', style: TextStyle(fontWeight: FontWeight.w600),),
       next: CircleAvatar(
         radius: 30.r,
         child: const Icon(Icons.arrow_forward),
@@ -88,7 +88,7 @@ class _OnboardState extends State<Onboard> {
             padding: const EdgeInsets.only(top: 3,left: 15),
             child: Text('Done',
                 style: TextStyle(fontWeight: FontWeight.w600,fontSize: 20.sp)),
-          )),
+          ),),
       curve: Curves.fastLinearToSlowEaseIn,
       controlsMargin: const EdgeInsets.all(16),
       controlsPadding: kIsWeb

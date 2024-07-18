@@ -14,8 +14,37 @@ class _PersonalchatState extends State<Personalchat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomSheet: Padding(
+        padding: const EdgeInsets.only(left: 20, bottom: 20),
+        child: Row(
+          children: [
+            Container(
+              width: 290.w,
+              height: 40.h,
+              decoration: ShapeDecoration(
+                color: Colors.grey.shade100,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              child: TextField(
+                decoration: InputDecoration(
+                    hintText: "Message",
+                    border: InputBorder.none,
+                    prefixIcon: Icon(Icons.emoji_emotions_outlined,size: 30,)),
+              ),
+            ),
+            SizedBox(width: 20.w),
+            Icon(
+              Icons.send,
+              color: Colors.blue,
+              size: 28.sp,
+            )
+          ],
+        ),
+      ),
       appBar: AppBar(
-        leadingWidth: 20,
+        leadingWidth: 40,
         toolbarHeight: 75.h,
         title: Row(
           children: [

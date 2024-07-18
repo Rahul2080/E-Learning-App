@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'Cart.dart';
+
 class Chat extends StatefulWidget {
   const Chat({super.key});
 
@@ -29,9 +31,11 @@ class _ChatState extends State<Chat> {
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 10),
-              child: Icon(
-                Icons.shopping_cart_outlined,
-                size: 30.sp,
+              child: GestureDetector(onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (_)=> Cart()));},
+                child: Icon(
+                  Icons.shopping_cart_outlined,
+                  size: 30.sp,
+                ),
               ),
             )
           ],

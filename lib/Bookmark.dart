@@ -3,6 +3,9 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'Cart.dart';
+import 'Video.dart';
+
 class Bookmark extends StatefulWidget {
   const Bookmark({super.key});
 
@@ -19,9 +22,11 @@ class _BookmarkState extends State<Bookmark> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10),
-            child: Icon(
-              Icons.shopping_cart_outlined,
-              size: 30.sp,
+            child: GestureDetector(onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (_)=> Cart()));},
+              child: Icon(
+                Icons.shopping_cart_outlined,
+                size: 30.sp,
+              ),
             ),
           )
         ],
@@ -89,67 +94,72 @@ class _BookmarkState extends State<Bookmark> {
                   itemBuilder: (context, position) {
                     return Padding(
                       padding: const EdgeInsets.only(left: 20, right: 10),
-                      child: Container(
-                        decoration: ShapeDecoration(
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(17),
+                      child: GestureDetector(onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (_) => Video()));
+                      },
+                        child: Container(
+                          decoration: ShapeDecoration(
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(17),
+                            ),
                           ),
-                        ),
-                        width: 180.w,
-                        height: 140.h,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                                width: 180.w,
-                                height: 180.h,
-                                child: Image.asset("assets/listimg.png")),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10, top: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 10, top: 5),
-                                    child: Text(
-                                      'UI/UX Design',
-                                      style: GoogleFonts.plusJakartaSans(
-                                        textStyle: TextStyle(
-                                          color: Color(0xFF1D1B20),
-                                          fontSize: 13.sp,
-                                          fontWeight: FontWeight.w700,
+                          width: 180.w,
+                          height: 140.h,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                  width: 180.w,
+                                  height: 180.h,
+                                  child: Image.asset("assets/listimg.png")),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10, top: 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 10, top: 5),
+                                      child: Text(
+                                        'UI/UX Design',
+                                        style: GoogleFonts.plusJakartaSans(
+                                          textStyle: TextStyle(
+                                            color: Color(0xFF1D1B20),
+                                            fontSize: 13.sp,
+                                            fontWeight: FontWeight.w700,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 10, top: 5),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.person_outlined,
-                                          size: 20.sp,
-                                        ),
-                                        Text(
-                                          'Stephen Moris',
-                                          style: GoogleFonts.plusJakartaSans(
-                                            textStyle: TextStyle(
-                                              color: Color(0xFF060302),
-                                              fontSize: 13.sp,
-                                              fontWeight: FontWeight.w400,
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 10, top: 5),
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.person_outlined,
+                                            size: 20.sp,
+                                          ),
+                                          Text(
+                                            'Stephen Moris',
+                                            style: GoogleFonts.plusJakartaSans(
+                                              textStyle: TextStyle(
+                                                color: Color(0xFF060302),
+                                                fontSize: 13.sp,
+                                                fontWeight: FontWeight.w400,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     );

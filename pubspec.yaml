@@ -43,6 +43,9 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   flutter_expanded_tile: ^0.4.0
   chat_bubbles: ^1.6.0
+  video_player: ^2.9.1
+  chewie: ^1.8.1
+  flick_video_player: ^0.8.0
 
 dev_dependencies:
   flutter_test:
