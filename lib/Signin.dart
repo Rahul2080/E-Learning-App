@@ -4,8 +4,11 @@ import 'package:ecommerce/Bottomnavigation.dart';
 import 'package:ecommerce/Forgetpassword.dart';
 import 'package:ecommerce/Home.dart';
 import 'package:ecommerce/Signup.dart';
+import 'package:ecommerce/ToatMessage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Signin extends StatefulWidget {
@@ -18,6 +21,10 @@ class Signin extends StatefulWidget {
 bool isVisible = false;
 
 class _SigninState extends State<Signin> {
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     TextEditingController controller = TextEditingController();
@@ -57,6 +64,7 @@ class _SigninState extends State<Signin> {
             Padding(
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: TextField(
+                controller: email,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: "Email",
@@ -86,6 +94,7 @@ class _SigninState extends State<Signin> {
             Padding(
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: TextField(
+                controller: password,
                 obscureText: isVisible,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -133,8 +142,16 @@ class _SigninState extends State<Signin> {
               padding: const EdgeInsets.only(left: 35, top: 60),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (_) => Bottomnavigation()));
+                  auth
+                      .signInWithEmailAndPassword(
+                          email: email.text, password: password.text)
+                      .then((onValue) {
+                    Fluttertoast.showToast(msg: "Succesfully Login");Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (_) => Bottomnavigation()));
+                  }).onError((error, stackTrace) => ToastMessage()
+                      .toastmessage(message: error.toString()));
+
+                  
                 },
                 child: Container(
                   width: 316.w,

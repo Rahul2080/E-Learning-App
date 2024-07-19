@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:ecommerce/Bookmark.dart';
 import 'package:ecommerce/Chat.dart';
 import 'package:ecommerce/Home.dart';
@@ -14,34 +15,39 @@ class Bottomnavigation extends StatefulWidget {
 }
 
 class _BottomnavigationState extends State<Bottomnavigation> {
-  final navigation = [
-   Home(),
-    Bookmark(),
-    Search(),
-    Chat(),
-    Profile()
-
-  ];
+  final navigation = [Home(), Bookmark(), Search(), Chat(), Profile()];
   int currentindex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(showSelectedLabels: false,
+      bottomNavigationBar: CurvedNavigationBar(
+        color: Colors.blue,
+        backgroundColor: Colors.white,
+        height: 50.h,
+        animationDuration: Duration(milliseconds: 500 ),
         onTap: (index) {
           setState(() {
             currentindex = index;
           });
         },
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home,color: currentindex==0? Color(0xFF8204FF): Colors.black), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.menu_book,color: currentindex==1? Color(0xFF8204FF): Colors.black), label: "Favourite"),
-          BottomNavigationBarItem(icon: Icon(Icons.search,color: currentindex==2? Color(0xFF8204FF): Colors.black), label: "Settings"),
-          BottomNavigationBarItem(icon: Icon(Icons.chat,color: currentindex==3? Color(0xFF8204FF): Colors.black), label: "Email"),
-          BottomNavigationBarItem(icon: CircleAvatar(radius: 13.r,
-            child: CircleAvatar(radius: 15.r,backgroundImage:AssetImage("assets/googlelogo.png"))), label: "Email"),
+          Icon(Icons.home,
+              color: currentindex == 0 ? Color(0xFF8204FF) : Colors.black),
+          Icon(Icons.menu_book,
+              color: currentindex == 1 ? Color(0xFF8204FF) : Colors.black),
+          Icon(Icons.search,
+              color: currentindex == 2 ? Color(0xFF8204FF) : Colors.black),
+          Icon(Icons.chat,
+              color: currentindex == 3 ? Color(0xFF8204FF) : Colors.black),
+          CircleAvatar(
+              radius: 13.r,
+              child: CircleAvatar(
+                  radius: 15.r,
+                  backgroundImage: AssetImage("assets/googlelogo.png"))),
         ],
       ),
-      body:navigation[currentindex] ,
+      body: navigation[currentindex],
     );
   }
 }
