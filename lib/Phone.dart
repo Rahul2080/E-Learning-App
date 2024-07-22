@@ -1,6 +1,8 @@
 import 'package:ecommerce/Otp.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Phone extends StatefulWidget {
@@ -11,48 +13,79 @@ class Phone extends StatefulWidget {
 }
 
 class _PhoneState extends State<Phone> {
+  TextEditingController phone = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
+        child:  Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10,top: 300),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: "+91 123456789",
-                  hintStyle: TextStyle(
-                    color: Color(0xFF858383),
-                    fontSize: 15.sp,
-                    fontFamily: 'Plus Jakarta Sans',
-                    fontWeight: FontWeight.w500,
-                  ),
+              padding: const EdgeInsets.only(left: 15, right: 25, top: 300),
+              child: TextField(keyboardType:TextInputType.number,
+                controller: phone,
+                decoration: InputDecoration(prefix: Text("+91 "),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(28),
+                      borderSide: BorderSide(width: 2, color: Colors.black)),
+                  hintText: "Phone Number",
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(28),
+                      borderSide: BorderSide(width: 2, color: Colors.black)),
                 ),
               ),
             ),
-            SizedBox(height: 60.h),
+            SizedBox(
+              height: 50.h,
+            ),
+            GestureDetector(
+              onTap: () {
+                print("+91${phone.text}");
+                auth.verifyPhoneNumber(
 
-            GestureDetector(onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (_)=> Otp()));},
+                    phoneNumber:"+91${phone.text}",
+                    verificationCompleted: (_){},
+                    verificationFailed: (error){ Fluttertoast.showToast(
+                        msg: error.toString(),
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        fontSize: 16.0);},
+                    codeSent: (String verificationId,int? token){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Otp(verification: verificationId,)));
+                    },
+                    codeAutoRetrievalTimeout: (error){ Fluttertoast.showToast(
+                        msg: error.toString(),
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        fontSize: 16.0);});
+
+              },
               child: Container(
-                width: 316.w,
-                height: 57.h,
+                width: 200.w,
+                height: 65,
                 decoration: ShapeDecoration(
-                  color: Color(0xD3F8C657),
+                  color: Colors.black,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 110,top: 10),
+                  padding: const EdgeInsets.only(top: 12),
                   child: Text(
-                    'Send OTP',
-                    style: GoogleFonts.plusJakartaSans(
+                    "Send OTP",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.mulish(
                       textStyle: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                        fontSize: 19.sp,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),

@@ -2,11 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Home.dart';
 
 class Otp extends StatefulWidget {
-  const Otp({super.key});
+  final String verification;
+  const Otp({super.key, required this.verification});
 
   @override
   State<Otp> createState() => _OtpState();
@@ -24,15 +26,17 @@ class _OtpState extends State<Otp> {
             child: Padding(
               padding: const EdgeInsets.only(top: 300),
               child: OtpTextField(
-                numberOfFields: 5,
+                numberOfFields: 6,
                 borderColor: Color(0xFF512DA8),
                 showFieldAsBox: true,
                 onCodeChanged: (String code) {},
                 onSubmit: (String verificationCode)
     async {
+
     final credentials = PhoneAuthProvider.credential(
     verificationId: widget.verification,
     smsCode: verificationCode);
+    checkLogin();
     try{
     await auth.signInWithCredential(credentials);
     Navigator.of(context).push(MaterialPageRoute(builder: (_)=> Home()));
@@ -47,5 +51,10 @@ class _OtpState extends State<Otp> {
         ],
       ),
     );
+  }
+  void checkLogin()async{
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('Token', true);
   }
 }

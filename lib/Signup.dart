@@ -7,8 +7,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Home.dart';
+import 'Onboard.dart';
 import 'Signin.dart';
 import 'ToatMessage.dart';
 
@@ -29,8 +31,8 @@ class _SignupState extends State<Signup> {
   TextEditingController confirmpassword = TextEditingController();
   TextEditingController name = TextEditingController();
 
-  bool Visible = false;
-  bool passwordVisible = false;
+  bool Visible = true;
+  bool passwordVisible = true;
 
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
@@ -57,7 +59,7 @@ class _SignupState extends State<Signup> {
                   ),
                 ),
               ),
-              SizedBox(height: 50.h),
+              SizedBox(height: 30.h),
               Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Text(
@@ -166,7 +168,7 @@ class _SignupState extends State<Signup> {
                         },
                       )),
                   validator: (value) {
-                    if (value!.isEmpty) {
+                    if (value!.isEmpty|| value.length<6) {
                       return 'Enter a valid password!';
                     }
 
@@ -227,7 +229,7 @@ class _SignupState extends State<Signup> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 35, top: 60),
+                padding: const EdgeInsets.only(left: 35, top: 30),
                 child: GestureDetector(
                     onTap: () {
                       final isValid = formkey.currentState?.validate();
@@ -242,10 +244,12 @@ class _SignupState extends State<Signup> {
                             "email": email.text,
                             "password": password.text
                           });
-
+                          checkLogin();
                           Fluttertoast.showToast(msg: "Succesfully Login");
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (_) => Bottomnavigation()));
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) => Bottomnavigation()),
+                              (route) => false);
                         }).onError((error, stackTrace) => ToastMessage()
                                 .toastmessage(message: error.toString()));
                       }
@@ -357,7 +361,7 @@ class _SignupState extends State<Signup> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 70, top: 50),
+                padding: const EdgeInsets.only(left: 70, top: 40),
                 child: Row(
                   children: [
                     Text(
@@ -397,6 +401,7 @@ class _SignupState extends State<Signup> {
   }
 
   Future<String?> signInwithGoogle() async {
+    checkLogin();
     try {
       final GoogleSignInAccount? googleSignInAccount =
           await googleSignIn.signIn();
@@ -413,5 +418,11 @@ class _SignupState extends State<Signup> {
       print(e.message);
       throw e;
     }
+  }
+
+  void checkLogin()async{
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('Token', true);
   }
 }

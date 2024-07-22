@@ -1,6 +1,8 @@
+import 'package:ecommerce/Home.dart';
 import 'package:ecommerce/Onboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -12,8 +14,15 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 3), () {
-      Navigator.of(context).push(MaterialPageRoute(builder: (_) =>Onboard()));
+    Future.delayed(Duration(seconds: 3), () async{
+      // Obtain shared preferences.
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      if(prefs.containsKey("Token")){
+        Navigator.of(context).push(MaterialPageRoute(builder: (_) =>Home()));
+      }else{
+        Navigator.of(context).push(MaterialPageRoute(builder: (_) =>Onboard()));
+      }
+
     });
 
     super.initState();

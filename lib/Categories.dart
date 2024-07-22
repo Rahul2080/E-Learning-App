@@ -1,4 +1,5 @@
 import 'package:ecommerce/StartCourseVideos.dart';
+import 'package:ecommerce/Video.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expanded_tile/flutter_expanded_tile.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -76,7 +77,7 @@ class _CategoriesState extends State<Categories> {
                       itemBuilder: (context, position) {
                         return GestureDetector(onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (_) => Startcoursevideos()));
+                              builder: (_) => Video()));
                         },
                           child: Container(
                             decoration: ShapeDecoration(
