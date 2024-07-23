@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/Cart.dart';
 import 'package:ecommerce/Categories.dart';
 import 'package:ecommerce/Video.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,7 +16,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<String> categories = ["Bussiness", "UI/UX", "Marketing", 'SEO'];
+  final firestore=FirebaseFirestore.instance.collection("Categories").snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -89,38 +91,48 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.only(left: 10, top: 10),
               child: SizedBox(
                 height: 40.h,
-                child: ListView.separated(
-                  separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(
-                      width: 10.w,
-                    );
-                  },
-                  itemCount: categories.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, position) {
-                    return Container(
-                      decoration: ShapeDecoration(
-                        color: Color(0xFFC6D6D3),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          categories[position],
-                          style: GoogleFonts.plusJakartaSans(
-                            textStyle: TextStyle(
-                              color: Colors.black,
-                              fontSize: 15.sp,
-                              fontFamily: 'Plus Jakarta Sans',
-                              fontWeight: FontWeight.w500,
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: firestore,
+                  builder: (BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot ) {
+                    if(!snapshot.hasData){
+                      return Center(child: CircularProgressIndicator(),);
+                    }
+                    if(snapshot.hasError){return Center(child: Text("ERROR",style: TextStyle(color: Colors.red),),);}
+                    if(snapshot.hasData){
+                    return ListView.separated(
+                      separatorBuilder: (BuildContext context, int index) {
+                        return SizedBox(
+                          width: 10.w,
+                        );
+                      },
+                      itemCount:snapshot.data!.docs.length ,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, position) {
+                        return Container(
+                          decoration: ShapeDecoration(
+                            color: Color(0xFFC6D6D3),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
                             ),
                           ),
-                        ),
-                      ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                                   snapshot.data!.docs[position]["name"],
+                              style: GoogleFonts.plusJakartaSans(
+                                textStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15.sp,
+                                  fontFamily: 'Plus Jakarta Sans',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
                     );
-                  },
+                  }else {return SizedBox();}}
                 ),
               ),
             ),
@@ -165,8 +177,8 @@ class _HomeState extends State<Home> {
                   return Padding(
                     padding: const EdgeInsets.only(left: 20, right: 10),
                     child: GestureDetector(onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (_) => Video()));
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //     builder: (_) => Video()));
                     },
                       child: Container(
                       decoration: ShapeDecoration(
@@ -319,8 +331,8 @@ class _HomeState extends State<Home> {
                   return Padding(
                     padding: const EdgeInsets.only(left: 20, right: 10),
                     child: GestureDetector(onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (_) => Video()));
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //     builder: (_) => Video()));
                     },
                       child: Container(
                         width: 180.w,
@@ -473,8 +485,8 @@ class _HomeState extends State<Home> {
                   return Padding(
                     padding: const EdgeInsets.only(left: 20, right: 10),
                     child: GestureDetector(onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (_) => Video()));
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //     builder: (_) => Video()));
                     },
                       child: Container(
                         width: 180.w,

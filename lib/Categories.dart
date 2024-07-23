@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/StartCourseVideos.dart';
 import 'package:ecommerce/Video.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,8 @@ class Categories extends StatefulWidget {
 }
 
 class _CategoriesState extends State<Categories> {
+  final firestore =
+      FirebaseFirestore.instance.collection("Categories").snapshots();
   late ExpandedTileController controller;
 
   void initState() {
@@ -29,7 +32,11 @@ class _CategoriesState extends State<Categories> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          GestureDetector(onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (_)=> Cart()));},
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => Cart()));
+            },
             child: Icon(
               Icons.shopping_cart_outlined,
               size: 30.sp,
@@ -50,152 +57,235 @@ class _CategoriesState extends State<Categories> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ExpandedTileList.builder(
-              itemCount: 5,
-              maxOpened: 3,
-              reverse: true,
-              itemBuilder: (context, index, con) {
-                return ExpandedTile(
-                  theme: const ExpandedTileThemeData(
-                    headerColor: Color(0xFFC6D6D3),
-                    headerPadding: EdgeInsets.all(24.0),
-                    headerSplashColor: Colors.red,
+            StreamBuilder<QuerySnapshot>(
+                stream: firestore,
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text(
+                        "ERROR",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    return ExpandedTileList.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      maxOpened: 3,
+                      reverse: true,
+                      itemBuilder: (context, index, con) {
+                        return ExpandedTile(
+                          theme: const ExpandedTileThemeData(
+                            headerColor: Color(0xFFC6D6D3),
+                            headerPadding: EdgeInsets.all(24.0),
+                            headerSplashColor: Colors.white,
 
-                    //
-                    contentBackgroundColor: Colors.white,
-                    contentPadding: EdgeInsets.all(24.0),
-
-                  ),
-                  controller: con,
-                  title: Text("Design"),
-                  content: SizedBox(
-                    height: 250.h,
-                    width: 250.w,
-                    child:  ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 20,
-                      itemBuilder: (context, position) {
-                        return GestureDetector(onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (_) => Video()));
-                        },
-                          child: Container(
-                            decoration: ShapeDecoration(
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(17),
+                            //
+                            contentBackgroundColor: Colors.white,
+                            contentPadding: EdgeInsets.all(24.0),
+                          ),
+                          controller: con,
+                          title: Text(
+                            snapshot.data!.docs[index]["name"],
+                            style: GoogleFonts.inter(
+                              textStyle: TextStyle(
+                                color: Color(0xFF1D1B20),
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
-                            width: 180.w,
-                            height: 140.h,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Image.asset("assets/listimg.png"),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10, top: 10),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "4.5",
-                                        style: GoogleFonts.plusJakartaSans(
-                                          textStyle: TextStyle(
-                                            color: Color(0xFF1D1B20),
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(width: 10.h),
-                                      RatingBar.builder(
-                                        initialRating: 3,
-                                        minRating: 1,
-                                        itemSize: 20.sp,
-                                        direction: Axis.horizontal,
-                                        allowHalfRating: true,
-                                        itemCount: 5,
-                                        itemPadding:
-                                        EdgeInsets.symmetric(horizontal: 1),
-                                        itemBuilder: (context, _) => Icon(
-                                          Icons.star,
-                                          color: Color(0xFF477B72),
-                                        ),
-                                        onRatingUpdate: (rating) {
-                                          print(rating);
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10, top: 5),
-                                  child: Text(
-                                    'UI/UX Design',
-                                    style: GoogleFonts.plusJakartaSans(
-                                      textStyle: TextStyle(
-                                        color: Color(0xFF1D1B20),
-                                        fontSize: 13.sp,
-                                        fontWeight: FontWeight.w700,
+                          ),
+                          content: SizedBox(
+                            height: 250.h,
+                            width: 250.w,
+                            child: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              itemCount:
+                                  snapshot.data!.docs[index]["course"].length,
+                              itemBuilder: (context, position) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (_) => Video(videopassing:snapshot
+                                                .data!
+                                                .docs[index]["course"][position]
+                                            ["video"]
+                                                .toString(), coursename: snapshot
+                                                .data!
+                                                .docs[index]["course"][position]
+                                            ["courseName"]
+                                                .toString(), aboutcourse: snapshot
+                                                .data!
+                                                .docs[index]["course"][position]
+                                            ["about"]
+                                                .toString(),), ));
+                                  },
+                                  child: Container(
+                                    decoration: ShapeDecoration(
+                                      color: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(17),
                                       ),
                                     ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10, top: 5),
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.person_outlined,
-                                        size: 20.sp,
-                                      ),
-                                      Text(
-                                        'Stephen Moris',
-                                        style: GoogleFonts.plusJakartaSans(
-                                          textStyle: TextStyle(
-                                            color: Color(0xFF060302),
-                                            fontSize: 13.sp,
-                                            fontWeight: FontWeight.w400,
+                                    width: 180.w,
+                                    height: 140.h,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                            width: 180.w,
+                                            height: 120.h,
+                                            decoration: ShapeDecoration(
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10))),
+                                            child: ClipRRect(borderRadius: BorderRadius.circular(10),
+                                              child: Image.network(snapshot
+                                                      .data!.docs[index]["course"]
+                                                  [position]["img"],fit: BoxFit.cover,),
+                                            )),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, top: 10),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                snapshot
+                                                    .data!
+                                                    .docs[index]["course"]
+                                                        [position]["rating"]
+                                                    .toString(),
+                                                style:
+                                                    GoogleFonts.plusJakartaSans(
+                                                  textStyle: TextStyle(
+                                                    color: Color(0xFF1D1B20),
+                                                    fontSize: 12.sp,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(width: 10.h),
+                                              RatingBar.builder(
+                                                initialRating: snapshot.data!
+                                                        .docs[index]["course"]
+                                                    [position]["rating"],
+                                                minRating: 1,
+                                                glowColor: Colors.transparent,
+                                                tapOnlyMode: true,
+                                                itemSize: 20.sp,
+                                                direction: Axis.horizontal,
+                                                allowHalfRating: true,
+                                                ignoreGestures: true,
+                                                itemCount: 5,
+                                                itemPadding:
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 1),
+                                                itemBuilder: (context, _) =>
+                                                    Icon(
+                                                  Icons.star,
+                                                  color: Color(0xFF477B72),
+                                                ),
+                                                onRatingUpdate: (rating) {
+                                                  print(rating);
+                                                },
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10, top: 5),
-                                  child: Text(
-                                    '\$14.50',
-                                    style: GoogleFonts.plusJakartaSans(
-                                      textStyle: TextStyle(
-                                        color: Color(0xFF477B72),
-                                        fontSize: 13.sp,
-                                        fontFamily: 'Plus Jakarta Sans',
-                                        fontWeight: FontWeight.w800,
-                                      ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, top: 5),
+                                          child: Text(
+                                            snapshot
+                                                .data!
+                                                .docs[index]["course"][position]
+                                                    ["courseName"]
+                                                .toString(),
+                                            style: GoogleFonts.plusJakartaSans(
+                                              textStyle: TextStyle(
+                                                color: Color(0xFF1D1B20),
+                                                fontSize: 13.sp,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, top: 5),
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                Icons.person_outlined,
+                                                size: 20.sp,
+                                              ),
+                                              Text(
+                                                snapshot
+                                                    .data!
+                                                    .docs[index]["course"]
+                                                        [position]["tutter"]
+                                                    .toString(),
+                                                style:
+                                                    GoogleFonts.plusJakartaSans(
+                                                  textStyle: TextStyle(
+                                                    color: Color(0xFF060302),
+                                                    fontSize: 13.sp,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, top: 5),
+                                          child: Text(
+                                          " \$  ${snapshot.data!.docs[index]['course'][position]['price'].toString()}",
+                                            style: GoogleFonts.plusJakartaSans(
+                                              textStyle: TextStyle(
+                                                color: Color(0xFF477B72),
+                                                fontSize: 13.sp,
+                                                fontFamily: 'Plus Jakarta Sans',
+                                                fontWeight: FontWeight.w800,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ),
-                              ],
+                                );
+                              },
+                              separatorBuilder: (context, position) {
+                                return SizedBox(
+                                  width: 5.w,
+                                );
+                              },
                             ),
                           ),
+                          onTap: () {
+                            debugPrint("tapped!!");
+                          },
+                          onLongTap: () {
+                            debugPrint("looooooooooong tapped!!");
+                          },
                         );
                       },
-                      separatorBuilder: (context, position) {
-                        return SizedBox(
-                          width: 5.w,
-                        );
-                      },
-                    ),
-                  ),
-                  onTap: () {
-                    debugPrint("tapped!!");
-                  },
-                  onLongTap: () {
-                    debugPrint("looooooooooong tapped!!");
-                  },
-                );
-              },
-            ),
+                    );
+                  } else {
+                    return SizedBox();
+                  }
+                }),
           ],
         ),
       ),

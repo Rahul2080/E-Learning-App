@@ -48,8 +48,8 @@ class _CartState extends State<Cart> {
                   return Padding(
                     padding: const EdgeInsets.only(left: 20, right: 10),
                     child: GestureDetector(onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (_) => Video()));
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //     builder: (_) => Video()));
                     },
                       child: Container(
                         decoration: ShapeDecoration(
