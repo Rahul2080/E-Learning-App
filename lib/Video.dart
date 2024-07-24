@@ -10,8 +10,11 @@ class Video extends StatefulWidget {
   final String videopassing;
   final String coursename;
   final String aboutcourse;
+ final List<dynamic>? studentcoursemarketing;
 
-  const Video({super.key, required this.videopassing, required this.coursename, required this.aboutcourse});
+  const Video({super.key, required this.videopassing, required this.coursename, required this.aboutcourse,
+     this.studentcoursemarketing
+  });
 
   @override
   State<Video> createState() => _VideoState();
@@ -29,6 +32,12 @@ class _VideoState extends State<Video> {
             widget.videopassing,),
       ),
     );
+  }
+  @override
+  void dispose() {
+    flickManager.dispose();
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override

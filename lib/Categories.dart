@@ -125,7 +125,9 @@ class _CategoriesState extends State<Categories> {
                                                 .data!
                                                 .docs[index]["course"][position]
                                             ["about"]
-                                                .toString(),), ));
+                                                .toString(),
+                                              //studentcoursemarketing: snapshot.data!.docs[position]["videos"],
+                                            ), ));
                                   },
                                   child: Container(
                                     decoration: ShapeDecoration(

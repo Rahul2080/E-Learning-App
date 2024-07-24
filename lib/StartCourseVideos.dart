@@ -23,6 +23,12 @@ class _StartcoursevideosState extends State<Startcoursevideos> {
       ),
     );
   }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    flickManager.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
