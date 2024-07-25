@@ -1,3 +1,4 @@
+import 'package:ecommerce/Bottomnavigation.dart';
 import 'package:ecommerce/Home.dart';
 import 'package:ecommerce/Onboard.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class _SplashState extends State<Splash> {
       // Obtain shared preferences.
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       if(prefs.containsKey("Token")){
-        Navigator.of(context).push(MaterialPageRoute(builder: (_) =>Home()));
+        Navigator.of(context).push(MaterialPageRoute(builder: (_) =>Bottomnavigation()));
       }else{
         Navigator.of(context).push(MaterialPageRoute(builder: (_) =>Onboard()));
       }

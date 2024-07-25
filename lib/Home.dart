@@ -135,7 +135,7 @@ class _HomeState extends State<Home> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  snapshot.data!.docs[position]["name"],
+                                  snapshot.data!.docs[position]["name"].toString(),
                                   style: GoogleFonts.plusJakartaSans(
                                     textStyle: TextStyle(
                                       color: Colors.black,
@@ -219,17 +219,24 @@ class _HomeState extends State<Home> {
                                     builder: (_) => Video(
                                           videopassing: snapshot
                                               .data!
-                                              .docs[position]["videos"][0]
-                                                  ['url']
-                                              .toString(),
+                                              .docs[position]["videos"],
                                           coursename: snapshot.data!
                                               .docs[position]["courseName"]
                                               .toString(),
                                           aboutcourse: snapshot
                                               .data!.docs[position]["about"]
                                               .toString(),
-                                          studentcoursemarketing: snapshot
-                                              .data!.docs[position]["videos"],
+
+                                      image: snapshot.data!
+                                          .docs[position]["img"]
+                                          .toString(), id:  snapshot.data!
+                                        .docs[position]["id"]
+                                        .toString(), tutter:  snapshot.data!
+                                        .docs[position]["tutter"]
+                                        .toString(), ratting:  snapshot.data!
+                                        .docs[position]["ratting"]
+                                        .toString(), price: snapshot.data!
+                                        .docs[position]["price"].toString(),
                                         )));
                               },
                               child: Container(
@@ -428,15 +435,23 @@ class _HomeState extends State<Home> {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (_) => Video(    videopassing: snapshot
                                         .data!
-                                        .docs[position]["videos"][0]
-                                    ['url']
-                                        .toString(),
+                                        .docs[position]["videos"],
                                       coursename: snapshot.data!
                                           .docs[position]["courseName"]
                                           .toString(),
                                       aboutcourse: snapshot
                                           .data!.docs[position]["about"]
                                           .toString(),
+                                      image: snapshot.data!
+                                          .docs[position]["img"]
+                                          .toString(), id:  snapshot.data!
+                                          .docs[position]["id"]
+                                          .toString(), tutter:  snapshot.data!
+                                          .docs[position]["tutter"]
+                                          .toString(), ratting:  snapshot.data!
+                                          .docs[position]["ratting"]
+                                          .toString(), price: snapshot.data!
+                                            .docs[position]["price"].toString(),
 
                                     )));
                               },
@@ -628,8 +643,25 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.only(left: 20, right: 10),
                         child: GestureDetector(
                           onTap: () {
-                            // Navigator.of(context).push(MaterialPageRoute(
-                            //     builder: (_) => Video()));
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (_) => Video(videopassing: snapshot
+                                    .data!
+                                    .docs[position]["videos"],
+                                  coursename: snapshot.data!
+                                      .docs[position]["courseName"]
+                                      .toString(),
+                                  aboutcourse: snapshot
+                                      .data!.docs[position]["about"]
+                                      .toString(), image: snapshot.data!
+                                      .docs[position]["img"]
+                                      .toString(), id:  snapshot.data!
+                                      .docs[position]["id"]
+                                      .toString(), tutter:  snapshot.data!
+                                      .docs[position]["tutter"]
+                                      .toString(), ratting:  snapshot.data!
+                                      .docs[position]["ratting"]
+                                      .toString(), price: snapshot.data!
+                                      .docs[position]["price"].toString(),)));
                           },
                           child: Container(
                             width: 180.w,
@@ -675,6 +707,7 @@ class _HomeState extends State<Home> {
                                         itemSize: 17.sp,
                                         direction: Axis.horizontal,
                                         allowHalfRating: true,
+                                        ignoreGestures: true,
                                         itemCount: 5,
                                         itemPadding:
                                             EdgeInsets.symmetric(horizontal: 1),

@@ -113,20 +113,14 @@ class _CategoriesState extends State<Categories> {
                                   onTap: () {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
-                                            builder: (_) => Video(videopassing:snapshot
-                                                .data!
-                                                .docs[index]["course"][position]
-                                            ["video"]
-                                                .toString(), coursename: snapshot
-                                                .data!
-                                                .docs[index]["course"][position]
-                                            ["courseName"]
-                                                .toString(), aboutcourse: snapshot
-                                                .data!
-                                                .docs[index]["course"][position]
-                                            ["about"]
-                                                .toString(),
-                                              //studentcoursemarketing: snapshot.data!.docs[position]["videos"],
+                                            builder: (_) => Video(videopassing:snapshot.data!.docs[index]["course"][position]["videos"],
+                                              coursename: snapshot.data!.docs[index]["course"][position]["courseName"].toString(),
+                                              aboutcourse: snapshot.data!.docs[index]["course"][position]["about"].toString(),
+                                              image: snapshot.data!.docs[index]["course"][position]["img"].toString(),
+                                              id:  snapshot.data!.docs[index]["course"][position]["id"].toString(),
+                                              tutter:  snapshot.data!.docs[index]["course"][position]["tutter"].toString(),
+                                              ratting:  snapshot.data!.docs[index]["course"][position]["ratting"].toString(),
+                                              price: snapshot.data!.docs[index]["course"][position]["price"].toString(),
                                             ), ));
                                   },
                                   child: Container(
@@ -164,7 +158,7 @@ class _CategoriesState extends State<Categories> {
                                                 snapshot
                                                     .data!
                                                     .docs[index]["course"]
-                                                        [position]["rating"]
+                                                        [position]["ratting"]
                                                     .toString(),
                                                 style:
                                                     GoogleFonts.plusJakartaSans(
@@ -178,8 +172,8 @@ class _CategoriesState extends State<Categories> {
                                               SizedBox(width: 10.h),
                                               RatingBar.builder(
                                                 initialRating: snapshot.data!
-                                                        .docs[index]["course"]
-                                                    [position]["rating"],
+                                                    .docs[index]["course"]
+                                                [position]["ratting"],
                                                 minRating: 1,
                                                 glowColor: Colors.transparent,
                                                 tapOnlyMode: true,

@@ -33,13 +33,13 @@ class _BottomnavigationState extends State<Bottomnavigation> {
         },
         items: [
           Icon(Icons.home,
-              color: currentindex == 0 ? Color(0xFF8204FF) : Colors.black),
+              color: currentindex == 0 ? Colors.black : Colors.white),
           Icon(Icons.menu_book,
-              color: currentindex == 1 ? Color(0xFF8204FF) : Colors.black),
+              color: currentindex == 1 ? Colors.black : Colors.white),
           Icon(Icons.search,
-              color: currentindex == 2 ? Color(0xFF8204FF) : Colors.black),
+              color: currentindex == 2 ? Colors.black :Colors.white),
           Icon(Icons.chat,
-              color: currentindex == 3 ? Color(0xFF8204FF) : Colors.black),
+              color: currentindex == 3 ? Colors.black : Colors.white),
           CircleAvatar(
               radius: 13.r,
               child: CircleAvatar(
