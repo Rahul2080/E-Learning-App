@@ -21,14 +21,11 @@ class Video extends StatefulWidget {
   final String ratting;
   final String price;
 
-
-
   const Video(
       {super.key,
       required this.videopassing,
       required this.coursename,
       required this.aboutcourse,
-
       required this.image,
       required this.id,
       required this.tutter,
@@ -40,13 +37,15 @@ class Video extends StatefulWidget {
 }
 
 class _VideoState extends State<Video> {
-  bool favarates=false;
+  bool favarates = false;
+  bool savedcollections = false;
   late FlickManager flickManager;
 
   @override
   void initState() {
     super.initState();
     checkFavourate();
+    checkSaved();
     flickManager = FlickManager(
       videoPlayerController: VideoPlayerController.networkUrl(
         Uri.parse(
@@ -55,6 +54,7 @@ class _VideoState extends State<Video> {
       ),
     );
   }
+
   @override
   void dispose() {
     flickManager.dispose();
@@ -62,27 +62,37 @@ class _VideoState extends State<Video> {
     super.dispose();
   }
 
-  Future<void>checkFavourate()async{
+  Future<void> checkFavourate() async {
     FirebaseAuth auth = FirebaseAuth.instance;
-    final subcollection=FirebaseFirestore.instance.collection("Users").doc(auth.currentUser!.uid).collection("favorates");
-    QuerySnapshot querySnapshot=await subcollection.get();
-    for(int i=0;i<querySnapshot.docs.length;i++){
-      if (querySnapshot.docs[i]["id"].toString()==widget.id.toString()){
-
+    final subcollection = FirebaseFirestore.instance
+        .collection("Users")
+        .doc(auth.currentUser!.uid)
+        .collection("favorates");
+    QuerySnapshot querySnapshot = await subcollection.get();
+    for (int i = 0; i < querySnapshot.docs.length; i++) {
+      if (querySnapshot.docs[i]["id"].toString() == widget.id.toString()) {
         setState(() {
-          favarates=true;
+          favarates = true;
         });
       }
-
     }
-
-
-
-
   }
 
-
-
+  Future<void> checkSaved() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    final SavedSubcollection = FirebaseFirestore.instance
+        .collection("Users")
+        .doc(auth.currentUser!.uid)
+        .collection("SavedCollections");
+    QuerySnapshot querySnapshot = await SavedSubcollection.get();
+    for (int i = 0; i < querySnapshot.docs.length; i++) {
+      if (querySnapshot.docs[i]["id"].toString() == widget.id.toString()) {
+        setState(() {
+          savedcollections = true;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,8 +101,11 @@ class _VideoState extends State<Video> {
         .collection("Users")
         .doc(auth.currentUser!.uid.toString())
         .collection("favorates");
-
-
+    FirebaseAuth savedauth = FirebaseAuth.instance;
+    final firestoresaved = FirebaseFirestore.instance
+        .collection("Users")
+        .doc(savedauth.currentUser!.uid.toString())
+        .collection("SavedCollections");
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -124,44 +137,81 @@ class _VideoState extends State<Video> {
                     ),
                   ),
                   SizedBox(
-                    width: 20.w,
-                  ),
-                  Icon(
-                    Icons.bookmark,
-                    size: 30.sp,
-                  ),
-                  SizedBox(
                     width: 10.w,
                   ),
-                  IconButton( icon: favarates==true ?Icon(Icons.favorite,color: Colors.red,
-                    size: 30.sp):Icon(Icons.favorite_border,size: 30.sp,) , onPressed: () {
-                    checkFavourate();
-                    if(favarates==true){
-                      firestore.doc(widget.id).delete().then((onValue) {
-                        Fluttertoast.showToast(msg: "removed");
-                        setState(() {
-                          favarates=false;
+                  IconButton(
+                    icon: savedcollections == true
+                        ? Icon(
+                            Icons.bookmark,
+                            size: 30.sp,
+                            color: Colors.black,
+                          )
+                        : Icon(Icons.bookmark_outline,size: 30.sp,),
+                    onPressed: () {
+                      if (savedcollections == true) {
+                        firestoresaved.doc(widget.id).delete().then((onValue) {
+                          Fluttertoast.showToast(msg: "removed");
+                          setState(() {
+                            savedcollections = false;
+                          });
                         });
-                      });
-                    }else{
-
-                    firestore.doc(widget.id).set({
-                    "img": widget.image,
-                    "id": widget.id,
-                    "videos": widget.videopassing,
-                    "ratting": widget.ratting,
-                    "price": widget.price,
-                    "courseName": widget.coursename,
-                    "about": widget.aboutcourse,
-                    "tutter": widget.tutter,
-                  }).then((onValue) {
-                    Fluttertoast.showToast(msg: "added to Favourates");
-                    setState(() {
-                      favarates=true;
-                    });
-                  }).onError((error, stackTrace) => ToastMessage()
-                      .toastmessage(message: error.toString())); };}
-                  )
+                      } else {
+                        firestoresaved.doc(widget.id).set({
+                          "img": widget.image,
+                          "id": widget.id,
+                          "videos": widget.videopassing,
+                          "ratting": widget.ratting,
+                          "price": widget.price,
+                          "courseName": widget.coursename,
+                          "about": widget.aboutcourse,
+                          "tutter": widget.tutter,
+                        }).then((onValue) {
+                          Fluttertoast.showToast(msg: "added to saved");
+                          setState(() {
+                            savedcollections = true;
+                          });
+                        }).onError((error, stackTrace) => ToastMessage()
+                            .toastmessage(message: error.toString()));
+                      }
+                      ;
+                    },
+                  ),
+                  IconButton(
+                      icon: favarates == true
+                          ? Icon(Icons.favorite, color: Colors.red, size: 30.sp)
+                          : Icon(
+                              Icons.favorite_border,
+                              size: 30.sp,
+                            ),
+                      onPressed: () {
+                        checkFavourate();
+                        if (favarates == true) {
+                          firestore.doc(widget.id).delete().then((onValue) {
+                            Fluttertoast.showToast(msg: "removed");
+                            setState(() {
+                              favarates = false;
+                            });
+                          });
+                        } else {
+                          firestore.doc(widget.id).set({
+                            "img": widget.image,
+                            "id": widget.id,
+                            "videos": widget.videopassing,
+                            "ratting": widget.ratting,
+                            "price": widget.price,
+                            "courseName": widget.coursename,
+                            "about": widget.aboutcourse,
+                            "tutter": widget.tutter,
+                          }).then((onValue) {
+                            Fluttertoast.showToast(msg: "added to Favourates");
+                            setState(() {
+                              favarates = true;
+                            });
+                          }).onError((error, stackTrace) => ToastMessage()
+                              .toastmessage(message: error.toString()));
+                        }
+                        ;
+                      })
                 ],
               ),
             ),
@@ -230,11 +280,39 @@ class _VideoState extends State<Video> {
                 ),
               ),
             ),
-            SizedBox(height: 20.h,)
+            Padding(
+              padding: const EdgeInsets.only(left: 38,top: 30),
+              child: Container(
+                width: 300.w,
+                height: 65.h,
+                decoration: ShapeDecoration(
+                  color: Colors.blueGrey,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(13),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 11),
+                  child: Text(
+                    'Add to cart',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.notoSans(
+                      textStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25.sp,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20.h,
+            )
           ],
         ),
       ),
-
     );
   }
 }

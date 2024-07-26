@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce/ProfileEdit.dart';
 import 'package:ecommerce/Signin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Cart.dart';
 
@@ -15,6 +18,8 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
+    final firestore =
+    FirebaseFirestore.instance.collection("Users").snapshots();
     return Scaffold(
         appBar: AppBar(
           actions: [
@@ -89,32 +94,34 @@ class _ProfileState extends State<Profile> {
               ),
             ),
             SizedBox(height: 70.h),
-            Container(
-              width: 340.w,
-              height: 50.h,
-              decoration: ShapeDecoration(
-                color: Color(0xFFC6D6D3),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6)),
-              ),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Text(
-                      'Edit',
-                      style: GoogleFonts.plusJakartaSans(
-                        textStyle: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.w500,
+            GestureDetector(onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Profileedit()));},
+              child: Container(
+                width: 340.w,
+                height: 50.h,
+                decoration: ShapeDecoration(
+                  color: Color(0xFFC6D6D3),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6)),
+                ),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Text(
+                        'Edit',
+                        style: GoogleFonts.plusJakartaSans(
+                          textStyle: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-SizedBox(width: 256.w),
-                  Icon(Icons.double_arrow)
-                ],
+              SizedBox(width: 256.w),
+                    Icon(Icons.double_arrow)
+                  ],
+                ),
               ),
             ),
             SizedBox(height: 20.h),
@@ -203,9 +210,12 @@ SizedBox(width: 256.w),
                 ],
               ),
             ), SizedBox(height: 20.h),
-            GestureDetector(onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (_) => Signin()));
+            GestureDetector(onTap: () async{
+              final SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs.clear();
+              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                  builder: (_) => Signin()),(route)=>false);
+
             },
               child: Container(
                 width: 340.w,

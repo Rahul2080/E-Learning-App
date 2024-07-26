@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/Cart.dart';
 import 'package:ecommerce/Categories.dart';
+import 'package:ecommerce/Favourates.dart';
 import 'package:ecommerce/Video.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,8 @@ class _HomeState extends State<Home> {
                 size: 30.sp,
               ),
             ),
-          )
+          ),GestureDetector(onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (_)=> Favourates()));},
+              child: Icon(Icons.favorite_border,size: 30.sp,))
         ],
         automaticallyImplyLeading: false,
         title: Text(
