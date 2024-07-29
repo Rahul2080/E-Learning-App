@@ -1,7 +1,12 @@
 import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'ToatMessage.dart';
 
 class Personalchat extends StatefulWidget {
   const Personalchat({super.key});
@@ -13,6 +18,17 @@ class Personalchat extends StatefulWidget {
 class _PersonalchatState extends State<Personalchat> {
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    TextEditingController messagecontroller = TextEditingController();
+    final firestore = FirebaseFirestore.instance
+        .collection("Users")
+        .doc(auth.currentUser!.uid.toString())
+        .collection("chat");
+    final chatview = FirebaseFirestore.instance
+        .collection("Users")
+        .doc(auth.currentUser!.uid.toString())
+        .collection("chat")
+        .snapshots();
     return Scaffold(
       bottomSheet: Padding(
         padding: const EdgeInsets.only(left: 20, bottom: 20),
@@ -28,21 +44,40 @@ class _PersonalchatState extends State<Personalchat> {
                 ),
               ),
               child: TextField(
+                controller: messagecontroller,
                 decoration: InputDecoration(
                     hintText: "Message",
                     border: InputBorder.none,
-                    prefixIcon: Icon(Icons.emoji_emotions_outlined,size: 30,)),
+                    prefixIcon: Icon(
+                      Icons.emoji_emotions_outlined,
+                      size: 30,
+                    )),
               ),
             ),
             SizedBox(width: 20.w),
-            Icon(
-              Icons.send,
-              color: Colors.blue,
-              size: 28.sp,
+            IconButton(
+              icon: Icon(
+                Icons.send,
+                color: Colors.blue,
+                size: 28.sp,
+              ),
+              onPressed: () {
+                final id = DateTime.now().microsecondsSinceEpoch.toString();
+                firestore
+                    .doc(id)
+                    .set({"message": messagecontroller.text, "id": id,"response": ""}).then(
+                        (onValue) {
+                  messagecontroller.clear();
+                 // ToastMessage().toastmessage(message: "");
+                }).onError((error, StackTrace) =>
+                        ToastMessage().toastmessage(message: error.toString()));
+              },
             )
           ],
         ),
       ),
+
+
       appBar: AppBar(
         leadingWidth: 40,
         toolbarHeight: 75.h,
@@ -67,18 +102,67 @@ class _PersonalchatState extends State<Personalchat> {
       ),
       body: Column(
         children: [
-          BubbleSpecialThree(
-            text: 'Hello',
-            color: Color(0xFFE8E8EE),
-            tail: false,
-            isSender: false,
+          Expanded(
+            child: StreamBuilder<QuerySnapshot>(
+              stream: chatview,
+              builder: (BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot) {
+    if (!snapshot.hasData) {
+    return Center(
+    child: CircularProgressIndicator(),
+    );
+    }
+    if (snapshot.hasError) {
+
+    return Center(
+    child: Text("ERROR",style: TextStyle(color: Colors.red),),
+    );
+    }
+    if (snapshot.hasData) {
+                return ListView.builder(reverse: false,
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context, position) {
+                    return   Column(
+                      children: [
+                        Container(
+                          child: ChatBubble(
+                            clipper: ChatBubbleClipper1(type: BubbleType.sendBubble),
+                            alignment: Alignment.topRight,
+                            margin: EdgeInsets.only(top: 20),
+                            backGroundColor: Colors.blue,
+                            child: Container(
+                              constraints: BoxConstraints(
+                                maxWidth: MediaQuery.of(context).size.width *0.7,
+                              ),
+                              child: Text(snapshot.data!.docs[position]["message"].toString(),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ),
+                    snapshot.data!.docs[position]["response"].toString()==""? SizedBox():
+                        ChatBubble(
+                          clipper: ChatBubbleClipper1(type: BubbleType.receiverBubble),
+                          alignment: Alignment.topLeft,
+                          margin: EdgeInsets.only(top: 20),
+                          backGroundColor: Colors.grey,
+                          child: Container(
+                            constraints: BoxConstraints(
+                              maxWidth: MediaQuery.of(context).size.width * 0.7,
+                            ),
+                            child: Text(snapshot.data!.docs[position]["response"].toString(),
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+
+                  },
+                );
+              }else{return SizedBox();}}
+            ),
           ),
-          BubbleSpecialThree(
-            text: 'Hi',
-            color: Colors.blue.shade100,
-            tail: false,
-            isSender: true,
-          ),
+          SizedBox(height: 70.h,)
         ],
       ),
     );

@@ -242,7 +242,8 @@ class _SignupState extends State<Signup> {
                             "name": name.text,
                             "id": auth.currentUser!.uid.toString(),
                             "email": email.text,
-                            "password": password.text
+                            "password": password.text,
+                            "profile":"",
                           });
                           checkLogin();
                           Fluttertoast.showToast(msg: "Succesfully Login");
