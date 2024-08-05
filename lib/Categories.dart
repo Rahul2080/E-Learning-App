@@ -81,14 +81,14 @@ class _CategoriesState extends State<Categories> {
                       reverse: true,
                       itemBuilder: (context, index, con) {
                         return ExpandedTile(
-                          theme: const ExpandedTileThemeData(
+                          theme:  ExpandedTileThemeData(
                             headerColor: Color(0xFFC6D6D3),
-                            headerPadding: EdgeInsets.all(24.0),
+                            headerPadding: EdgeInsets.all(24.0.sp),
                             headerSplashColor: Colors.white,
 
                             //
                             contentBackgroundColor: Colors.white,
-                            contentPadding: EdgeInsets.all(24.0),
+                            contentPadding: EdgeInsets.all(24.0.sp),
                           ),
                           controller: con,
                           title: Text(
@@ -127,7 +127,7 @@ class _CategoriesState extends State<Categories> {
                                     decoration: ShapeDecoration(
                                       color: Colors.white,
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(17),
+                                        borderRadius: BorderRadius.circular(17.r),
                                       ),
                                     ),
                                     width: 180.w,
@@ -144,14 +144,14 @@ class _CategoriesState extends State<Categories> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             10))),
-                                            child: ClipRRect(borderRadius: BorderRadius.circular(10),
+                                            child: ClipRRect(borderRadius: BorderRadius.circular(10.r),
                                               child: Image.network(snapshot
                                                       .data!.docs[index]["course"]
                                                   [position]["img"],fit: BoxFit.cover,),
                                             )),
                                         Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10, top: 10),
+                                          padding:  EdgeInsets.only(
+                                              left: 10.w, top: 10.h),
                                           child: Row(
                                             children: [
                                               Text(
@@ -184,7 +184,7 @@ class _CategoriesState extends State<Categories> {
                                                 itemCount: 5,
                                                 itemPadding:
                                                     EdgeInsets.symmetric(
-                                                        horizontal: 1),
+                                                        horizontal: 1.w),
                                                 itemBuilder: (context, _) =>
                                                     Icon(
                                                   Icons.star,
@@ -198,8 +198,8 @@ class _CategoriesState extends State<Categories> {
                                           ),
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10, top: 5),
+                                          padding:  EdgeInsets.only(
+                                              left: 10.w, top: 5.h),
                                           child: Text(
                                             snapshot
                                                 .data!
@@ -216,8 +216,8 @@ class _CategoriesState extends State<Categories> {
                                           ),
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10, top: 5),
+                                          padding:  EdgeInsets.only(
+                                              left: 10.w, top: 5.h),
                                           child: Row(
                                             children: [
                                               Icon(
@@ -243,8 +243,8 @@ class _CategoriesState extends State<Categories> {
                                           ),
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10, top: 5),
+                                          padding:  EdgeInsets.only(
+                                              left: 10.w, top: 5.h),
                                           child: Text(
                                           " \$  ${snapshot.data!.docs[index]['course'][position]['price'].toString()}",
                                             style: GoogleFonts.plusJakartaSans(

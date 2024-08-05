@@ -1,3 +1,4 @@
+import 'package:double_back_to_exit/non_web_preview.dart';
 import 'package:ecommerce/Splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (_, child) {
-          return MaterialApp(
+          return MaterialApp(debugShowCheckedModeBanner: false,
               title: 'Flutter Demo',
               theme: ThemeData(
                 // This is the theme of your application.

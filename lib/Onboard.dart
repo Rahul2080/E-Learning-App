@@ -81,23 +81,23 @@ class _OnboardState extends State<Onboard> {
           height: 40.h,
           decoration: ShapeDecoration(color:Color(0x3F0F7BA34),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(20.r),
             ),
           ),
           child:  Padding(
-            padding: const EdgeInsets.only(top: 3,left: 15),
+            padding:  EdgeInsets.only(top: 3.h,left: 15.w),
             child: Text('Done',
                 style: TextStyle(fontWeight: FontWeight.w600,fontSize: 20.sp)),
           ),),
       curve: Curves.fastLinearToSlowEaseIn,
-      controlsMargin: const EdgeInsets.all(16),
+      controlsMargin:  EdgeInsets.all(16.sp),
       controlsPadding: kIsWeb
-          ? const EdgeInsets.all(12.0)
-          : const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
-      dotsDecorator: const DotsDecorator(
-        size: Size(10.0, 10.0),
+          ?  EdgeInsets.all(12.0.sp)
+          :  EdgeInsets.fromLTRB(8.0.w, 4.0.h, 8.0.w, 4.0.h),
+      dotsDecorator:  DotsDecorator(
+        size: Size(10.0.sp, 10.0.sp),
         color: Color(0xFFBDBDBD),
-        activeSize: Size(22.0, 10.0),
+        activeSize: Size(22.0.sp, 10.0.sp),
         activeShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(25.0)),
         ),

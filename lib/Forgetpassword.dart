@@ -39,7 +39,7 @@ class _ForgetpasswordState extends State<Forgetpassword> {
               height: 200.h,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10),
+              padding:  EdgeInsets.only(left: 10.w),
               child: Text(
                 'Email',
                 style: GoogleFonts.plusJakartaSans(
@@ -52,7 +52,7 @@ class _ForgetpasswordState extends State<Forgetpassword> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
+              padding:  EdgeInsets.only(left: 10.w, right: 10.w),
               child: TextFormField(controller: email,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -74,7 +74,7 @@ class _ForgetpasswordState extends State<Forgetpassword> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 35, top: 60),
+              padding:  EdgeInsets.only(left: 35.w, top: 60.h),
               child: GestureDetector(
                 onTap: () {
                   auth.sendPasswordResetEmail(email: email.text).then((
@@ -87,15 +87,15 @@ class _ForgetpasswordState extends State<Forgetpassword> {
                 child: Container(
                   width: 316.w,
                   height: 57.h,
-                  padding: const EdgeInsets.symmetric(vertical: 17),
+                  padding:  EdgeInsets.symmetric(vertical: 17.h),
                   decoration: ShapeDecoration(
                     color: Color(0xD3F8C657),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(15.r),
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 140),
+                    padding:  EdgeInsets.only(left: 140.w),
                     child: Text(
                       'SUBMIT',
                       style: GoogleFonts.plusJakartaSans(

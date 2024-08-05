@@ -22,17 +22,17 @@ class _PhoneState extends State<Phone> {
         child:  Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 15, right: 25, top: 300),
+              padding:  EdgeInsets.only(left: 15.w, right: 25.w, top: 300.h),
               child: TextField(keyboardType:TextInputType.number,
                 controller: phone,
                 decoration: InputDecoration(prefix: Text("+91 "),
                   focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(28),
-                      borderSide: BorderSide(width: 2, color: Colors.black)),
+                      borderRadius: BorderRadius.circular(28.r),
+                      borderSide: BorderSide(width: 2.w, color: Colors.black)),
                   hintText: "Phone Number",
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(28),
-                      borderSide: BorderSide(width: 2, color: Colors.black)),
+                      borderRadius: BorderRadius.circular(28.r),
+                      borderSide: BorderSide(width: 2.w, color: Colors.black)),
                 ),
               ),
             ),
@@ -53,7 +53,7 @@ class _PhoneState extends State<Phone> {
                         timeInSecForIosWeb: 1,
                         backgroundColor: Colors.red,
                         textColor: Colors.white,
-                        fontSize: 16.0);},
+                        fontSize: 16.0.sp);},
                     codeSent: (String verificationId,int? token){
                       Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Otp(verification: verificationId,)));
                     },
@@ -64,20 +64,20 @@ class _PhoneState extends State<Phone> {
                         timeInSecForIosWeb: 1,
                         backgroundColor: Colors.red,
                         textColor: Colors.white,
-                        fontSize: 16.0);});
+                        fontSize: 16.0.sp);});
 
               },
               child: Container(
                 width: 200.w,
-                height: 65,
+                height: 65.h,
                 decoration: ShapeDecoration(
                   color: Colors.black,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(30.r),
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 12),
+                  padding:  EdgeInsets.only(top: 12.h),
                   child: Text(
                     "Send OTP",
                     textAlign: TextAlign.center,

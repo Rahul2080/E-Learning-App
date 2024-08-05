@@ -101,11 +101,14 @@ class _VideoState extends State<Video> {
         .collection("Users")
         .doc(auth.currentUser!.uid.toString())
         .collection("favorates");
-    FirebaseAuth savedauth = FirebaseAuth.instance;
     final firestoresaved = FirebaseFirestore.instance
         .collection("Users")
-        .doc(savedauth.currentUser!.uid.toString())
+        .doc(auth.currentUser!.uid.toString())
         .collection("SavedCollections");
+    final addtocart = FirebaseFirestore.instance
+        .collection("Users")
+        .doc(auth.currentUser!.uid.toString())
+        .collection("Carts");
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -146,7 +149,10 @@ class _VideoState extends State<Video> {
                             size: 30.sp,
                             color: Colors.black,
                           )
-                        : Icon(Icons.bookmark_outline,size: 30.sp,),
+                        : Icon(
+                            Icons.bookmark_outline,
+                            size: 30.sp,
+                          ),
                     onPressed: () {
                       if (savedcollections == true) {
                         firestoresaved.doc(widget.id).delete().then((onValue) {
@@ -252,7 +258,7 @@ class _VideoState extends State<Video> {
               child: GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => Startcoursevideos()));
+                      MaterialPageRoute(builder: (_) => Startcoursevideos(Videolist:widget.videopassing,)));
                 },
                 child: Container(
                   width: 300.w,
@@ -281,26 +287,44 @@ class _VideoState extends State<Video> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 38,top: 30),
-              child: Container(
-                width: 300.w,
-                height: 65.h,
-                decoration: ShapeDecoration(
-                  color: Colors.blueGrey,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(13),
+              padding: const EdgeInsets.only(left: 38, top: 30),
+              child: GestureDetector(onTap: (){
+
+addtocart.doc(widget.id).set({
+  "img": widget.image,
+  "id": widget.id,
+  "videos": widget.videopassing,
+  "ratting": widget.ratting,
+  "price": widget.price,
+  "courseName": widget.coursename,
+  "about": widget.aboutcourse,
+  "tutter": widget.tutter,
+}).then((onValue) {
+  Fluttertoast.showToast(msg: "added to Cart");
+}).onError((error, stackTrace) => ToastMessage()
+    .toastmessage(message: error.toString()));
+
+              },
+                child: Container(
+                  width: 300.w,
+                  height: 65.h,
+                  decoration: ShapeDecoration(
+                    color: Colors.blueGrey,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(13),
+                    ),
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 11),
-                  child: Text(
-                    'Add to cart',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.notoSans(
-                      textStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25.sp,
-                        fontWeight: FontWeight.w700,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 11),
+                    child: Text(
+                      'Add to cart',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.notoSans(
+                        textStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   ),

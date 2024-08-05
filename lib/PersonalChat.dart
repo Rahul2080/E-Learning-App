@@ -31,7 +31,7 @@ class _PersonalchatState extends State<Personalchat> {
         .snapshots();
     return Scaffold(
       bottomSheet: Padding(
-        padding: const EdgeInsets.only(left: 20, bottom: 20),
+        padding:  EdgeInsets.only(left: 20.w, bottom: 20.h),
         child: Row(
           children: [
             Container(
@@ -40,7 +40,7 @@ class _PersonalchatState extends State<Personalchat> {
               decoration: ShapeDecoration(
                 color: Colors.grey.shade100,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(20.r),
                 ),
               ),
               child: TextField(
@@ -50,7 +50,7 @@ class _PersonalchatState extends State<Personalchat> {
                     border: InputBorder.none,
                     prefixIcon: Icon(
                       Icons.emoji_emotions_outlined,
-                      size: 30,
+                      size: 30.sp,
                     )),
               ),
             ),
@@ -79,7 +79,7 @@ class _PersonalchatState extends State<Personalchat> {
 
 
       appBar: AppBar(
-        leadingWidth: 40,
+        leadingWidth: 40.w,
         toolbarHeight: 75.h,
         title: Row(
           children: [
@@ -127,7 +127,7 @@ class _PersonalchatState extends State<Personalchat> {
                           child: ChatBubble(
                             clipper: ChatBubbleClipper1(type: BubbleType.sendBubble),
                             alignment: Alignment.topRight,
-                            margin: EdgeInsets.only(top: 20),
+                            margin: EdgeInsets.only(top: 20.h),
                             backGroundColor: Colors.blue,
                             child: Container(
                               constraints: BoxConstraints(
@@ -143,7 +143,7 @@ class _PersonalchatState extends State<Personalchat> {
                         ChatBubble(
                           clipper: ChatBubbleClipper1(type: BubbleType.receiverBubble),
                           alignment: Alignment.topLeft,
-                          margin: EdgeInsets.only(top: 20),
+                          margin: EdgeInsets.only(top: 20.h),
                           backGroundColor: Colors.grey,
                           child: Container(
                             constraints: BoxConstraints(

@@ -117,7 +117,7 @@ class _ProfileeditState extends State<Profileedit> {
                                 ),
                               ),
                               child: Opacity(
-                                opacity: .7,
+                                opacity: .7.sp,
                                 child: image != null
                                     ? Image.file(
                                         image!.absolute,
@@ -125,13 +125,13 @@ class _ProfileeditState extends State<Profileedit> {
                                       )
                                     : Icon(
                                         Icons.photo,
-                                        size: 50,
+                                        size: 50.sp,
                                       ),
                               ),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 80, top: 70),
+                            padding:  EdgeInsets.only(left: 80.w, top: 70.h),
                             child: GestureDetector(
                               onTap: () {
                                 showModalBottomSheet(
@@ -142,7 +142,7 @@ class _ProfileeditState extends State<Profileedit> {
                                         child: Center(
                                           child: Padding(
                                             padding:
-                                                const EdgeInsets.only(left: 70),
+                                                 EdgeInsets.only(left: 70.w),
                                             child: Row(
                                               children: [
                                                 GestureDetector(
@@ -159,19 +159,19 @@ class _ProfileeditState extends State<Profileedit> {
                                                           RoundedRectangleBorder(
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(16),
+                                                                .circular(16.r),
                                                       ),
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          const EdgeInsets.only(
-                                                              top: 20),
+                                                           EdgeInsets.only(
+                                                              top: 20.h),
                                                       child: Column(
                                                         children: [
                                                           Icon(
                                                             Icons.camera_alt,
                                                             color: Colors.white,
-                                                            size: 40,
+                                                            size: 40.sp,
                                                           ),
                                                           Text(
                                                             "Take a Photo",
@@ -199,13 +199,13 @@ class _ProfileeditState extends State<Profileedit> {
                                                           RoundedRectangleBorder(
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(16),
+                                                                .circular(16.r),
                                                       ),
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          const EdgeInsets.only(
-                                                              top: 20),
+                                                           EdgeInsets.only(
+                                                              top: 20.h),
                                                       child: Column(
                                                         children: [
                                                           Icon(
@@ -237,7 +237,7 @@ class _ProfileeditState extends State<Profileedit> {
                                 decoration: ShapeDecoration(
                                   color: Colors.white,
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(20.r),
                                   ),
                                 ),
                                 child: Icon(Icons.image_outlined),

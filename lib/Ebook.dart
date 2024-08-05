@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:double_back_to_exit/non_web_preview.dart';
+import 'package:ecommerce/PdfReader.dart';
 import 'package:ecommerce/PersonalChat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -19,46 +21,39 @@ class _EbookState extends State<Ebook> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xFFC6D6D3),
-        foregroundColor: Colors.black,
-        onPressed: () {},
-        child: Icon(Icons.chat_outlined),
-      ),
-      appBar: AppBar(
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (_) => Cart()));
-              },
-              child: Icon(
-                Icons.shopping_cart_outlined,
-                size: 30.sp,
+    return DoubleBackToExitWidget(snackBarMessage: 'Press back again to exit',
+      child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            Padding(
+              padding:  EdgeInsets.only(right: 10.w),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (_) => Cart()));
+                },
+                child: Icon(
+                  Icons.shopping_cart_outlined,
+                  size: 30.sp,
+                ),
               ),
-            ),
-          )
-        ],
-        title: Text(
-          'E-Book',
-          style: GoogleFonts.plusJakartaSans(
-            textStyle: TextStyle(
-              color: Color(0xFF1D1B20),
-              fontSize: 23.sp,
-              fontWeight: FontWeight.w700,
+            )
+          ],
+          title: Text(
+            'E-Book',
+            style: GoogleFonts.plusJakartaSans(
+              textStyle: TextStyle(
+                color: Color(0xFF1D1B20),
+                fontSize: 23.sp,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 678.h,
-              child: StreamBuilder<QuerySnapshot>(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              StreamBuilder<QuerySnapshot>(
                   stream: firestore,
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -76,75 +71,101 @@ class _EbookState extends State<Ebook> {
                       );
                     }
                     if (snapshot.hasData) {
-                      return GridView.count(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 10.0,
-                        mainAxisSpacing: 10.0,
-                        shrinkWrap: true,
-                        children: List.generate(
-                          snapshot.data!.docs.length,
-                          (index) {
-                            return Container(
-                              decoration: ShapeDecoration(
-                                color: Colors.red,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.r),
-                                ),
-                              ),
-                              child:
-                                  Column(crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Image.network(
-                                        snapshot.data!.docs[index]["img"]
-                                            .toString(),
-                                        fit: BoxFit.cover,
+                      return SizedBox(
+                        height: 678.h,
+                        child: GridView.count(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 10.0.w,
+                          mainAxisSpacing: 10.0.w,
+                          shrinkWrap: true,
+                          children: List.generate(
+                            snapshot.data!.docs.length,
+                            (index) {
+                              return Padding(
+                                padding: EdgeInsets.only(left: 5.w),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                        builder: (_) => Pdfreader(
+                                            pdf: snapshot.data!.docs[index]["pdf"]
+                                                .toString())));
+                                  },
+                                  child: Container(
+                                    decoration: ShapeDecoration(
+                                      color: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10.r),
                                       ),
-
-                                      Text(snapshot.data!.docs[index]["courseName"]
-                                          .toString()),
-                                      Text(snapshot.data!.docs[index]["about"]
-                                          .toString()),
-
-                                      Row(
-                                        children: [
-                                          Text("4.5"),
-
-                                          RatingBar.builder(
-                                            initialRating: snapshot.data!
-                                                .docs[index]["ratting"],
-                                            minRating: 1,
-                                            itemSize: 16.sp,
-                                            direction: Axis.horizontal,
-                                            allowHalfRating: true,
-                                            ignoreGestures: true,
-                                            itemCount: 5,
-                                            itemPadding: EdgeInsets.symmetric(
-                                                horizontal: 1),
-                                            itemBuilder: (context, _) => Icon(
-                                              Icons.star,
-                                              color: Color(0xFF477B72),
-                                            ),
-                                            onRatingUpdate: (rating) {
-                                              print(rating);
-                                            },
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10.r),
+                                          child: Image.network(
+                                            snapshot.data!.docs[index]["img"]
+                                                .toString(),
+                                            fit: BoxFit.cover,
                                           ),
-                                        ],
-                                      ),
-
-                                    ],
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 5.w),
+                                          child: Text(snapshot
+                                              .data!.docs[index]["courseName"]
+                                              .toString()),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 5.w),
+                                          child: Text(
+                                            snapshot.data!.docs[index]["about"]
+                                                .toString(),
+                                            maxLines: 2,style: TextStyle(fontSize: 9.sp),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 5.w),
+                                          child: Row(
+                                            children: [
+                                              Text("4.5"),
+                                              RatingBar.builder(
+                                                initialRating: snapshot
+                                                    .data!.docs[index]["ratting"],
+                                                minRating: 1,
+                                                itemSize: 16.sp,
+                                                direction: Axis.horizontal,
+                                                allowHalfRating: true,
+                                                ignoreGestures: true,
+                                                itemCount: 5,
+                                                itemPadding: EdgeInsets.symmetric(
+                                                    horizontal: 1.w),
+                                                itemBuilder: (context, _) => Icon(
+                                                  Icons.star,
+                                                  color: Color(0xFF477B72),
+                                                ),
+                                                onRatingUpdate: (rating) {
+                                                  print(rating);
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-
-
-                            );
-                          },
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       );
                     } else {
                       return SizedBox();
                     }
                   }),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

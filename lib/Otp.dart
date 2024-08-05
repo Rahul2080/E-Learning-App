@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,7 +25,7 @@ class _OtpState extends State<Otp> {
         children: [
           Center(
             child: Padding(
-              padding: const EdgeInsets.only(top: 300),
+              padding:  EdgeInsets.only(top: 300.h),
               child: OtpTextField(
                 numberOfFields: 6,
                 borderColor: Color(0xFF512DA8),
