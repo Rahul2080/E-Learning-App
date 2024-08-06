@@ -138,7 +138,7 @@ class _ProfileeditState extends State<Profileedit> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return SizedBox(
-                                        height: 130.h,
+                                        height: 150.h,
                                         child: Center(
                                           child: Padding(
                                             padding:
@@ -152,7 +152,7 @@ class _ProfileeditState extends State<Profileedit> {
                                                   },
                                                   child: Container(
                                                     width: 100.w,
-                                                    height: 80.h,
+                                                    height: 100.h,
                                                     decoration: ShapeDecoration(
                                                       color: Colors.black,
                                                       shape:
@@ -192,7 +192,7 @@ class _ProfileeditState extends State<Profileedit> {
                                                   },
                                                   child: Container(
                                                     width: 100.w,
-                                                    height: 80.h,
+                                                    height: 100.h,
                                                     decoration: ShapeDecoration(
                                                       color: Colors.black,
                                                       shape:

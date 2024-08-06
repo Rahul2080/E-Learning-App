@@ -72,11 +72,11 @@ class _EbookState extends State<Ebook> {
                     }
                     if (snapshot.hasData) {
                       return SizedBox(
-                        height: 678.h,
+                        height: 280.h,
                         child: GridView.count(
                           crossAxisCount: 2,
-                          crossAxisSpacing: 10.0.w,
-                          mainAxisSpacing: 10.0.w,
+                          crossAxisSpacing: 2.0.w,
+                          childAspectRatio: 300/300,
                           shrinkWrap: true,
                           children: List.generate(
                             snapshot.data!.docs.length,
@@ -90,68 +90,78 @@ class _EbookState extends State<Ebook> {
                                             pdf: snapshot.data!.docs[index]["pdf"]
                                                 .toString())));
                                   },
-                                  child: Container(
-                                    decoration: ShapeDecoration(
-                                      color: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10.r),
+                                  child: Padding(
+                                    padding:  EdgeInsets.only(left: 10.w,right: 10.w,top: 10.h),
+                                    child: Container(height: 100.h,
+                                      decoration: ShapeDecoration(
+                                        color: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10.r),
+                                        ),
                                       ),
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10.r),
-                                          child: Image.network(
-                                            snapshot.data!.docs[index]["img"]
-                                                .toString(),
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 5.w),
-                                          child: Text(snapshot
-                                              .data!.docs[index]["courseName"]
-                                              .toString()),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 5.w),
-                                          child: Text(
-                                            snapshot.data!.docs[index]["about"]
-                                                .toString(),
-                                            maxLines: 2,style: TextStyle(fontSize: 9.sp),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 5.w),
-                                          child: Row(
-                                            children: [
-                                              Text("4.5"),
-                                              RatingBar.builder(
-                                                initialRating: snapshot
-                                                    .data!.docs[index]["ratting"],
-                                                minRating: 1,
-                                                itemSize: 16.sp,
-                                                direction: Axis.horizontal,
-                                                allowHalfRating: true,
-                                                ignoreGestures: true,
-                                                itemCount: 5,
-                                                itemPadding: EdgeInsets.symmetric(
-                                                    horizontal: 1.w),
-                                                itemBuilder: (context, _) => Icon(
-                                                  Icons.star,
-                                                  color: Color(0xFF477B72),
-                                                ),
-                                                onRatingUpdate: (rating) {
-                                                  print(rating);
-                                                },
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(width: 200.w,height: 100.h,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.only(topLeft: Radius.circular(10.r),topRight: Radius.circular(10.r),),
+                                              child: Image.network(
+                                                snapshot.data!.docs[index]["img"]
+                                                    .toString(),
+                                                fit: BoxFit.cover,
                                               ),
-                                            ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                          SizedBox(height: 5.h),
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 5.w),
+                                            child: Text(snapshot
+                                                .data!.docs[index]["courseName"]
+                                                .toString()),
+                                          ),
+                                          SizedBox(height: 3.h),
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 5.w),
+                                            child: Text(
+                                              snapshot.data!.docs[index]["about"]
+                                                  .toString(),
+                                              maxLines: 2,style: TextStyle(fontSize: 9.sp),
+                                            ),
+                                          ),
+                                          SizedBox(height: 2.h),
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 5.w),
+                                            child: Row(
+                                              children: [
+
+                                                Text( snapshot
+                                                    .data!.docs[index]["ratting"].toString()),
+                                                RatingBar.builder(
+                                                  initialRating: snapshot
+                                                      .data!.docs[index]["ratting"],
+                                                  minRating: 1,
+                                                  itemSize: 16.sp,
+                                                  direction: Axis.horizontal,
+                                                  allowHalfRating: true,
+                                                  ignoreGestures: true,
+                                                  itemCount: 5,
+                                                  itemPadding: EdgeInsets.symmetric(
+                                                      horizontal: 1.w),
+                                                  itemBuilder: (context, _) => Icon(
+                                                    Icons.star,
+                                                    color: Color(0xFF477B72),
+                                                  ),
+                                                  onRatingUpdate: (rating) {
+                                                    print(rating);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),

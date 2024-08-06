@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:readmore/readmore.dart';
 import 'package:video_player/video_player.dart';
 
@@ -21,16 +22,15 @@ class Video extends StatefulWidget {
   final String ratting;
   final String price;
 
-  const Video(
-      {super.key,
-      required this.videopassing,
-      required this.coursename,
-      required this.aboutcourse,
-      required this.image,
-      required this.id,
-      required this.tutter,
-      required this.ratting,
-      required this.price});
+  const Video({super.key,
+    required this.videopassing,
+    required this.coursename,
+    required this.aboutcourse,
+    required this.image,
+    required this.id,
+    required this.tutter,
+    required this.ratting,
+    required this.price});
 
   @override
   State<Video> createState() => _VideoState();
@@ -40,6 +40,9 @@ class _VideoState extends State<Video> {
   bool favarates = false;
   bool savedcollections = false;
   late FlickManager flickManager;
+  FirebaseAuth auth = FirebaseAuth.instance;
+  final updatepayment = FirebaseFirestore.instance
+      .collection("Users");
 
   @override
   void initState() {
@@ -54,6 +57,70 @@ class _VideoState extends State<Video> {
       ),
     );
   }
+
+  void handlePaymentErrorResponse(PaymentFailureResponse response) {
+
+
+    /*
+    * PaymentFailureResponse contains three values:
+    * 1. Error Code
+    * 2. Error Description
+    * 3. Metadata
+    * */
+    showAlertDialog(context, "Payment Failed",
+        "Code: ${response.code}\nDescription: ${response
+            .message}\nMetadata:${response.error.toString()}");
+  }
+
+  void handlePaymentSuccessResponse(PaymentSuccessResponse response) {
+    updatepayment.doc(auth.currentUser!.uid).update({"premium": true}).then((
+        onValue) {
+      Navigator.of(context).pop();
+      Navigator.of(context).pop();
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (_) =>
+              Startcoursevideos(Videolist: widget.videopassing,),),);
+
+    }).onError((eroor, StackTrace) {
+      Fluttertoast.showToast(msg: eroor.toString());
+    });
+
+
+    /*
+    * Payment Success Response contains three values:
+    * 1. Order ID
+    * 2. Payment ID
+    * 3. Signature
+    * */
+    showAlertDialog(
+        context, "Payment Successful", "Payment ID: ${response.paymentId}");
+  }
+
+  void handleExternalWalletSelected(ExternalWalletResponse response) {
+    showAlertDialog(
+        context, "External Wallet Selected", "${response.walletName}");
+  }
+
+  void showAlertDialog(BuildContext context, String title, String message) {
+    // set up the buttons
+    Widget continueButton = ElevatedButton(
+      child: const Text("Continue"),
+      onPressed: () {},
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text(title),
+      content: Text(message),
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
 
   @override
   void dispose() {
@@ -122,7 +189,7 @@ class _VideoState extends State<Video> {
               child: FlickVideoPlayer(flickManager: flickManager),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20, top: 20),
+              padding: EdgeInsets.only(left: 20.w, top: 20.h),
               child: Row(
                 children: [
                   Container(
@@ -145,14 +212,14 @@ class _VideoState extends State<Video> {
                   IconButton(
                     icon: savedcollections == true
                         ? Icon(
-                            Icons.bookmark,
-                            size: 30.sp,
-                            color: Colors.black,
-                          )
+                      Icons.bookmark,
+                      size: 30.sp,
+                      color: Colors.black,
+                    )
                         : Icon(
-                            Icons.bookmark_outline,
-                            size: 30.sp,
-                          ),
+                      Icons.bookmark_outline,
+                      size: 30.sp,
+                    ),
                     onPressed: () {
                       if (savedcollections == true) {
                         firestoresaved.doc(widget.id).delete().then((onValue) {
@@ -176,8 +243,9 @@ class _VideoState extends State<Video> {
                           setState(() {
                             savedcollections = true;
                           });
-                        }).onError((error, stackTrace) => ToastMessage()
-                            .toastmessage(message: error.toString()));
+                        }).onError((error, stackTrace) =>
+                            ToastMessage()
+                                .toastmessage(message: error.toString()));
                       }
                       ;
                     },
@@ -186,9 +254,9 @@ class _VideoState extends State<Video> {
                       icon: favarates == true
                           ? Icon(Icons.favorite, color: Colors.red, size: 30.sp)
                           : Icon(
-                              Icons.favorite_border,
-                              size: 30.sp,
-                            ),
+                        Icons.favorite_border,
+                        size: 30.sp,
+                      ),
                       onPressed: () {
                         checkFavourate();
                         if (favarates == true) {
@@ -213,8 +281,9 @@ class _VideoState extends State<Video> {
                             setState(() {
                               favarates = true;
                             });
-                          }).onError((error, stackTrace) => ToastMessage()
-                              .toastmessage(message: error.toString()));
+                          }).onError((error, stackTrace) =>
+                              ToastMessage()
+                                  .toastmessage(message: error.toString()));
                         }
                         ;
                       })
@@ -222,13 +291,13 @@ class _VideoState extends State<Video> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 30, right: 30),
+              padding: EdgeInsets.only(left: 30.w, right: 30.w),
               child: Divider(
                 color: Colors.grey.shade300,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20),
+              padding: EdgeInsets.only(left: 20.w),
               child: Text(
                 'About Course ',
                 style: GoogleFonts.plusJakartaSans(
@@ -241,7 +310,7 @@ class _VideoState extends State<Video> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20, top: 20),
+              padding: EdgeInsets.only(left: 20.w, top: 20.h),
               child: ReadMoreText(
                 widget.aboutcourse,
                 preDataTextStyle: const TextStyle(
@@ -254,11 +323,98 @@ class _VideoState extends State<Video> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 38, top: 90),
+              padding: EdgeInsets.only(left: 38.w, top: 90.h),
               child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => Startcoursevideos(Videolist:widget.videopassing,)));
+                onTap: () async {
+                  final updatepayment = FirebaseFirestore.instance
+                      .collection("Users").doc(auth.currentUser!.uid.toString());
+                  DocumentSnapshot<Map<String,dynamic>>querysnapshot=await updatepayment.get();
+                  if(querysnapshot ["premium"]==false){
+
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return SizedBox(
+                          height: 250.h,
+                          width: double.infinity,
+                          child: Center(
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.star,
+                                  color: Colors.orange,
+                                  size: 60.sp,
+                                ),
+
+                                Text(
+                                    "Subscribe for Rs.100 and get access to \n All courses and EBooks. Enjoy Aditional \nfeatures like refer and ern money."),
+
+
+                                SizedBox(height: 20.h),
+                                GestureDetector(onTap: () {
+                                  Razorpay razorpay = Razorpay();
+                                  var options = {
+                                    'key': 'rzp_test_gKANZdsNdLqaQs',
+                                    'amount': 100,
+                                    'name': 'Acme Corp.',
+                                    'description': 'Fine T-Shirt',
+                                    'retry': {'enabled': true, 'max_count': 1},
+                                    'send_sms_hash': true,
+                                    'prefill': {
+                                      'contact': '8888888888',
+                                      'email': 'test@razorpay.com'
+                                    },
+                                    'external': {
+                                      'wallets': ['paytm']
+                                    }
+                                  };
+                                  razorpay.on(Razorpay.EVENT_PAYMENT_ERROR,
+                                      handlePaymentErrorResponse);
+                                  razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
+                                      handlePaymentSuccessResponse);
+                                  razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
+                                      handleExternalWalletSelected);
+                                  razorpay.open(options);
+                                },
+                                  child: Container(
+                                    width: 170.w,
+                                    height: 50.h,
+                                    decoration: ShapeDecoration(
+                                      color: Colors.orange,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            10.r),
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.only(left: 20.w),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            "Get Premium ",
+                                            textAlign: TextAlign.center,
+                                            style: GoogleFonts.notoSans(
+                                              textStyle: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15.sp,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                          ),
+                                          Icon(Icons.workspace_premium)
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      });}
+                  else{
+                    Navigator.of(context).push(
+    MaterialPageRoute(builder: (_) => Startcoursevideos(Videolist:widget.videopassing,)));}
                 },
                 child: Container(
                   width: 300.w,
@@ -266,11 +422,10 @@ class _VideoState extends State<Video> {
                   decoration: ShapeDecoration(
                     color: Colors.blueGrey,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(13),
+                      borderRadius: BorderRadius.circular(13.r),
                     ),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 11),
+                  child: Center(
                     child: Text(
                       'Start Course!..',
                       textAlign: TextAlign.center,
@@ -287,35 +442,33 @@ class _VideoState extends State<Video> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 38, top: 30),
-              child: GestureDetector(onTap: (){
-
-addtocart.doc(widget.id).set({
-  "img": widget.image,
-  "id": widget.id,
-  "videos": widget.videopassing,
-  "ratting": widget.ratting,
-  "price": widget.price,
-  "courseName": widget.coursename,
-  "about": widget.aboutcourse,
-  "tutter": widget.tutter,
-}).then((onValue) {
-  Fluttertoast.showToast(msg: "added to Cart");
-}).onError((error, stackTrace) => ToastMessage()
-    .toastmessage(message: error.toString()));
-
-              },
+              padding: EdgeInsets.only(left: 38.w, top: 30.h),
+              child: GestureDetector(
+                onTap: () {
+                  addtocart.doc(widget.id).set({
+                    "img": widget.image,
+                    "id": widget.id,
+                    "videos": widget.videopassing,
+                    "ratting": widget.ratting,
+                    "price": widget.price,
+                    "courseName": widget.coursename,
+                    "about": widget.aboutcourse,
+                    "tutter": widget.tutter,
+                  }).then((onValue) {
+                    Fluttertoast.showToast(msg: "added to Cart");
+                  }).onError((error, stackTrace) =>
+                      ToastMessage().toastmessage(message: error.toString()));
+                },
                 child: Container(
                   width: 300.w,
                   height: 65.h,
                   decoration: ShapeDecoration(
                     color: Colors.blueGrey,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(13),
+                      borderRadius: BorderRadius.circular(13.r),
                     ),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 11),
+                  child: Center(
                     child: Text(
                       'Add to cart',
                       textAlign: TextAlign.center,

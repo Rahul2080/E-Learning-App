@@ -125,119 +125,122 @@ class _SearchState extends State<Search> {
                                 .docs[position]["ratting"]
                                 .toString(), price: snapshot.data!
                                 .docs[position]["price"].toString(),)));},
-                            child: Container(
-                              width: 180.w,
-                              height: 160.h,
-                              decoration: ShapeDecoration(
-                                color: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.r),
+                            child: Padding(
+                              padding:  EdgeInsets.only(left: 10.w),
+                              child: Container(
+                                width: 180.w,
+                                height: 160.h,
+                                decoration: ShapeDecoration(
+                                  color: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.r),
+                                  ),
                                 ),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                      width: 180.w,
-                                      height: 110.h,
-                                      child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10.r),
-                                          child: Image.network(
-                                            snapshot.data!.docs[position]["img"],
-                                            fit: BoxFit.cover,
-                                          ))),
-                                  Padding(
-                                    padding:
-                                         EdgeInsets.only(left: 10.w, top: 10.h),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          snapshot.data!.docs[position]["ratting"]
-                                              .toString(),
-                                          style: GoogleFonts.plusJakartaSans(
-                                            textStyle: TextStyle(
-                                              color: Color(0xFF1D1B20),
-                                              fontSize: 12.sp,
-                                              fontWeight: FontWeight.w700,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                        width: 180.w,
+                                        height: 110.h,
+                                        child: ClipRRect(
+                                            borderRadius: BorderRadius.only(topLeft: Radius.circular(10.r),topRight: Radius.circular(10.r),),
+                                            child: Image.network(
+                                              snapshot.data!.docs[position]["img"],
+                                              fit: BoxFit.cover,
+                                            ))),
+                                    Padding(
+                                      padding:
+                                           EdgeInsets.only(left: 10.w, top: 10.h),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            snapshot.data!.docs[position]["ratting"]
+                                                .toString(),
+                                            style: GoogleFonts.plusJakartaSans(
+                                              textStyle: TextStyle(
+                                                color: Color(0xFF1D1B20),
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.w700,
+                                              ),
                                             ),
                                           ),
+                                          SizedBox(width: 10.h),
+                                          RatingBar.builder(
+                                            initialRating: snapshot
+                                                .data!.docs[position]["ratting"],
+                                            minRating: 1.w,
+                                            itemSize: 17.sp,
+                                            direction: Axis.horizontal,
+                                            allowHalfRating: true,
+                                            ignoreGestures: true,
+                                            itemCount: 5,
+                                            itemPadding:
+                                                EdgeInsets.symmetric(horizontal: 1.w),
+                                            itemBuilder: (context, _) => Icon(
+                                              Icons.star,
+                                              color: Color(0xFF477B72),
+                                            ),
+                                            onRatingUpdate: (rating) {
+                                              print(rating);
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding:
+                                           EdgeInsets.only(left: 10.w, top: 5.h),
+                                      child: Text(
+                                        snapshot.data!.docs[position]["courseName"]
+                                            .toString(),
+                                        style: GoogleFonts.plusJakartaSans(
+                                          textStyle: TextStyle(
+                                            color: Color(0xFF1D1B20),
+                                            fontSize: 13.sp,
+                                            fontWeight: FontWeight.w700,
+                                          ),
                                         ),
-                                        SizedBox(width: 10.h),
-                                        RatingBar.builder(
-                                          initialRating: snapshot
-                                              .data!.docs[position]["ratting"],
-                                          minRating: 1.w,
-                                          itemSize: 17.sp,
-                                          direction: Axis.horizontal,
-                                          allowHalfRating: true,
-                                          ignoreGestures: true,
-                                          itemCount: 5,
-                                          itemPadding:
-                                              EdgeInsets.symmetric(horizontal: 1.w),
-                                          itemBuilder: (context, _) => Icon(
-                                            Icons.star,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding:
+                                           EdgeInsets.only(left: 10.w, top: 5.h),
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.person_outlined,
+                                            size: 20.sp,
+                                          ),
+                                          Text(
+                                            snapshot.data!.docs[position]["tutter"],
+                                            style: GoogleFonts.plusJakartaSans(
+                                              textStyle: TextStyle(
+                                                color: Color(0xFF060302),
+                                                fontSize: 13.sp,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding:
+                                           EdgeInsets.only(left: 10.w, top: 5.h),
+                                      child: Text(
+                                        "\$ ${snapshot.data!.docs[position]['ratting']}",
+                                        style: GoogleFonts.plusJakartaSans(
+                                          textStyle: TextStyle(
                                             color: Color(0xFF477B72),
+                                            fontSize: 13.sp,
+                                            fontFamily: 'Plus Jakarta Sans',
+                                            fontWeight: FontWeight.w800,
                                           ),
-                                          onRatingUpdate: (rating) {
-                                            print(rating);
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                         EdgeInsets.only(left: 10.w, top: 5.h),
-                                    child: Text(
-                                      snapshot.data!.docs[position]["courseName"]
-                                          .toString(),
-                                      style: GoogleFonts.plusJakartaSans(
-                                        textStyle: TextStyle(
-                                          color: Color(0xFF1D1B20),
-                                          fontSize: 13.sp,
-                                          fontWeight: FontWeight.w700,
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                         EdgeInsets.only(left: 10.w, top: 5.h),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.person_outlined,
-                                          size: 20.sp,
-                                        ),
-                                        Text(
-                                          snapshot.data!.docs[position]["tutter"],
-                                          style: GoogleFonts.plusJakartaSans(
-                                            textStyle: TextStyle(
-                                              color: Color(0xFF060302),
-                                              fontSize: 13.sp,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                         EdgeInsets.only(left: 10.w, top: 5.h),
-                                    child: Text(
-                                      "\$ ${snapshot.data!.docs[position]['ratting']}",
-                                      style: GoogleFonts.plusJakartaSans(
-                                        textStyle: TextStyle(
-                                          color: Color(0xFF477B72),
-                                          fontSize: 13.sp,
-                                          fontFamily: 'Plus Jakarta Sans',
-                                          fontWeight: FontWeight.w800,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           );

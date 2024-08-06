@@ -15,6 +15,7 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   void initState() {
+    
     Future.delayed(Duration(seconds: 3), () async{
       // Obtain shared preferences.
       final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -38,7 +39,7 @@ class _SplashState extends State<Splash> {
             children: [
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 340),
+                  padding:  EdgeInsets.only(top: 340.h),
                   child: SizedBox(
                     width: 200.w,
                     height: 200.h,
@@ -49,7 +50,7 @@ class _SplashState extends State<Splash> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 372,left: 50),
+            padding:  EdgeInsets.only(top: 372.h,left: 50.w),
             child: SizedBox(width: 80.w,height: 80.h,child: Image.asset("assets/splash2.png")),
           ),
         ],

@@ -61,7 +61,7 @@ class _SignupState extends State<Signup> {
               ),
               SizedBox(height: 30.h),
               Padding(
-                padding: const EdgeInsets.only(left: 10),
+                padding:  EdgeInsets.only(left: 10.w),
                 child: Text(
                   'Full Name',
                   style: GoogleFonts.plusJakartaSans(
@@ -74,7 +74,7 @@ class _SignupState extends State<Signup> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
+                padding:  EdgeInsets.only(left: 10.w, right: 10.w),
                 child: TextField(
                   controller: name,
                   decoration: InputDecoration(
@@ -91,7 +91,7 @@ class _SignupState extends State<Signup> {
               ),
               SizedBox(height: 20.h),
               Padding(
-                padding: const EdgeInsets.only(left: 10),
+                padding:  EdgeInsets.only(left: 10.w),
                 child: Text(
                   'Email',
                   style: GoogleFonts.plusJakartaSans(
@@ -104,7 +104,7 @@ class _SignupState extends State<Signup> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
+                padding:  EdgeInsets.only(left: 10.w, right: 10.w),
                 child: TextFormField(
                   controller: email,
                   decoration: InputDecoration(
@@ -129,7 +129,7 @@ class _SignupState extends State<Signup> {
               ),
               SizedBox(height: 20.h),
               Padding(
-                padding: const EdgeInsets.only(left: 10),
+                padding:  EdgeInsets.only(left: 10.w),
                 child: Text(
                   'Password',
                   style: GoogleFonts.plusJakartaSans(
@@ -142,7 +142,7 @@ class _SignupState extends State<Signup> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
+                padding:  EdgeInsets.only(left: 10.w, right: 10.w),
                 child: TextFormField(
                   controller: password,
                   obscureText: passwordVisible,
@@ -159,7 +159,7 @@ class _SignupState extends State<Signup> {
                         child: Icon(
                           Icons.visibility,
                           color: Colors.grey,
-                          size: 20,
+                          size: 20.sp,
                         ),
                         onTap: () {
                           setState(() {
@@ -178,7 +178,7 @@ class _SignupState extends State<Signup> {
               ),
               SizedBox(height: 20.h),
               Padding(
-                padding: const EdgeInsets.only(left: 10),
+                padding:  EdgeInsets.only(left: 10.w),
                 child: Text(
                   'Confirm Password',
                   style: GoogleFonts.plusJakartaSans(
@@ -191,7 +191,7 @@ class _SignupState extends State<Signup> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
+                padding:  EdgeInsets.only(left: 10.w, right: 10.w),
                 child: TextFormField(
                   controller: confirmpassword,
                   obscureText: Visible,
@@ -208,7 +208,7 @@ class _SignupState extends State<Signup> {
                         child: Icon(
                           Icons.visibility,
                           color: Colors.grey,
-                          size: 20,
+                          size: 20.sp,
                         ),
                         onTap: () {
                           setState(
@@ -229,7 +229,7 @@ class _SignupState extends State<Signup> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 35, top: 30),
+                padding:  EdgeInsets.only(left: 35.w, top: 30.h),
                 child: GestureDetector(
                     onTap: () {
                       final isValid = formkey.currentState?.validate();
@@ -244,6 +244,7 @@ class _SignupState extends State<Signup> {
                             "email": email.text,
                             "password": password.text,
                             "profile":"",
+                            "premium":false
                           });
                           checkLogin();
                           Fluttertoast.showToast(msg: "Succesfully Login");
@@ -259,15 +260,15 @@ class _SignupState extends State<Signup> {
                     child: Container(
                       width: 316.w,
                       height: 57.h,
-                      padding: const EdgeInsets.symmetric(vertical: 17),
+                      padding:  EdgeInsets.symmetric(vertical: 17.h),
                       decoration: ShapeDecoration(
                         color: Color(0xD3F8C657),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(15.r),
                         ),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 140),
+                        padding:  EdgeInsets.only(left: 140.w),
                         child: Text(
                           'LOGIN',
                           style: GoogleFonts.plusJakartaSans(
@@ -289,7 +290,7 @@ class _SignupState extends State<Signup> {
                   SizedBox(
                       width: 130.w,
                       child: Divider(
-                        thickness: 1,
+                        thickness: 1.sp,
                         color: Colors.grey,
                       )),
                   SizedBox(width: 5.w),
@@ -307,26 +308,26 @@ class _SignupState extends State<Signup> {
                   SizedBox(
                       width: 130.w,
                       child: Divider(
-                        thickness: 1,
+                        thickness: 1.sp,
                         color: Colors.grey,
                       )),
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 100, top: 30),
+                padding:  EdgeInsets.only(left: 100.w, top: 30.h),
                 child: Row(
                   children: [
                     GestureDetector(onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (_)=> Phone()));},
                       child: Container(
                         width: 82.w,
                         height: 48.h,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 11),
+                        padding:  EdgeInsets.symmetric(
+                            horizontal: 15.w, vertical: 11.h),
                         decoration: ShapeDecoration(
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
-                            side: BorderSide(width: 1, color: Color(0xFFDDDDDD)),
-                            borderRadius: BorderRadius.circular(10),
+                            side: BorderSide(width: 1.w, color: Color(0xFFDDDDDD)),
+                            borderRadius: BorderRadius.circular(10.r),
                           ),
                         ),
                         child: Icon(
@@ -344,13 +345,13 @@ class _SignupState extends State<Signup> {
                       child: Container(
                         width: 82.w,
                         height: 48.h,
-                        padding: const EdgeInsets.all(15),
+                        padding:  EdgeInsets.all(15.r),
                         decoration: ShapeDecoration(
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
                             side:
-                                BorderSide(width: 1, color: Color(0xFFDDDDDD)),
-                            borderRadius: BorderRadius.circular(10),
+                                BorderSide(width: 1.w, color: Color(0xFFDDDDDD)),
+                            borderRadius: BorderRadius.circular(10.r),
                           ),
                         ),
                         child: Image.asset(
@@ -362,7 +363,7 @@ class _SignupState extends State<Signup> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 70, top: 40),
+                padding:  EdgeInsets.only(left: 70.w, top: 40.h),
                 child: Row(
                   children: [
                     Text(

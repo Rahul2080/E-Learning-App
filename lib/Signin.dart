@@ -58,7 +58,7 @@ class _SigninState extends State<Signin> {
               ),
               SizedBox(height: 130.h),
               Padding(
-                padding: const EdgeInsets.only(left: 10),
+                padding:  EdgeInsets.only(left: 10.w),
                 child: Text(
                   'Email',
                   style: GoogleFonts.plusJakartaSans(
@@ -71,7 +71,7 @@ class _SigninState extends State<Signin> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
+                padding:  EdgeInsets.only(left: 10.w, right: 10.w),
                 child: TextFormField(
 
                   controller: email,
@@ -96,7 +96,7 @@ class _SigninState extends State<Signin> {
               ),
               SizedBox(height: 40.h),
               Padding(
-                padding: const EdgeInsets.only(left: 10),
+                padding:  EdgeInsets.only(left: 10.w),
                 child: Text(
                   'Password',
                   style: GoogleFonts.plusJakartaSans(
@@ -109,7 +109,7 @@ class _SigninState extends State<Signin> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
+                padding:  EdgeInsets.only(left: 10.w, right: 10.w),
                 child: TextFormField(
                   controller: password,
                   obscureText: isVisible,
@@ -126,7 +126,7 @@ class _SigninState extends State<Signin> {
                         child: Icon(
                           Icons.visibility,
                           color: Colors.grey,
-                          size: 20,
+                          size: 20.sp,
                         ),
                         onTap: () {
                           setState(() {
@@ -143,7 +143,7 @@ class _SigninState extends State<Signin> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 270, top: 6),
+                padding:  EdgeInsets.only(left: 250.w, top: 6.h),
                 child: GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(
@@ -162,7 +162,7 @@ class _SigninState extends State<Signin> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 35, top: 60),
+                padding:  EdgeInsets.only(left: 35.w, top: 60.h),
                 child: GestureDetector(
                   onTap: () {
                     final isValid = formkey.currentState?.validate();
@@ -188,15 +188,15 @@ class _SigninState extends State<Signin> {
                   child: Container(
                     width: 316.w,
                     height: 57.h,
-                    padding: const EdgeInsets.symmetric(vertical: 17),
+                    padding:  EdgeInsets.symmetric(vertical: 17.h),
                     decoration: ShapeDecoration(
                       color: Color(0xD3F8C657),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(15.r),
                       ),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 140),
+                      padding:  EdgeInsets.only(left: 140.w),
                       child: Text(
                         'LOGIN',
                         style: GoogleFonts.plusJakartaSans(
@@ -237,26 +237,26 @@ class _SigninState extends State<Signin> {
                   SizedBox(
                       width: 130.w,
                       child: Divider(
-                        thickness: 1,
+                        thickness: 1.sp,
                         color: Colors.grey,
                       )),
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 100, top: 30),
+                padding:  EdgeInsets.only(left: 100.w, top: 30.h),
                 child: Row(
                   children: [
                     GestureDetector(onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (_)=> Phone()));},
                       child: Container(
                         width: 82.w,
                         height: 48.h,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 11),
+                        padding:  EdgeInsets.symmetric(
+                            horizontal: 15.w, vertical: 11.h),
                         decoration: ShapeDecoration(
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
-                            side: BorderSide(width: 1, color: Color(0xFFDDDDDD)),
-                            borderRadius: BorderRadius.circular(10),
+                            side: BorderSide(width: 1.w, color: Color(0xFFDDDDDD)),
+                            borderRadius: BorderRadius.circular(10.r),
                           ),
                         ),
                         child: Icon(
@@ -271,12 +271,12 @@ class _SigninState extends State<Signin> {
                       child: Container(
                         width: 82.w,
                         height: 48.h,
-                        padding: const EdgeInsets.all(15),
+                        padding:  EdgeInsets.all(15.sp),
                         decoration: ShapeDecoration(
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
-                            side: BorderSide(width: 1, color: Color(0xFFDDDDDD)),
-                            borderRadius: BorderRadius.circular(10),
+                            side: BorderSide(width: 1.w, color: Color(0xFFDDDDDD)),
+                            borderRadius: BorderRadius.circular(10.r),
                           ),
                         ),
                         child: Image.asset(
@@ -288,7 +288,7 @@ class _SigninState extends State<Signin> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 60, top: 90),
+                padding:  EdgeInsets.only(left: 60.w, top: 90.h),
                 child: Row(
                   children: [
                     Text(

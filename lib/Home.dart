@@ -33,7 +33,7 @@ class _HomeState extends State<Home> {
         appBar: AppBar(
           actions: [
             Padding(
-              padding: const EdgeInsets.only(right: 10),
+              padding:  EdgeInsets.only(right: 10.w),
               child: GestureDetector(
                 onTap: () {
                   Navigator.of(context)
@@ -63,7 +63,7 @@ class _HomeState extends State<Home> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 10, top: 20),
+                padding:  EdgeInsets.only(left: 10.w, top: 20.h),
                 child: Row(
                   children: [
                     Text(
@@ -99,7 +99,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 10, top: 10),
+                padding:  EdgeInsets.only(left: 10.w, top: 10.h),
                 child: SizedBox(
                   height: 40.h,
                   child: StreamBuilder<QuerySnapshot>(
@@ -133,11 +133,11 @@ class _HomeState extends State<Home> {
                                 decoration: ShapeDecoration(
                                   color: Color(0xFFC6D6D3),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(20.r),
                                   ),
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding:  EdgeInsets.all(8.0.sp),
                                   child: Text(
                                     snapshot.data!.docs[position]["name"].toString(),
                                     style: GoogleFonts.plusJakartaSans(
@@ -160,7 +160,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 10, left: 10),
+                padding:  EdgeInsets.only(top: 10.h, left: 10.w),
                 child: Row(
                   children: [
                     Text(
@@ -216,7 +216,7 @@ class _HomeState extends State<Home> {
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, position) {
                             return Padding(
-                              padding: const EdgeInsets.only(left: 20, right: 10),
+                              padding:  EdgeInsets.only(left: 20.w, right: 10.w),
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
@@ -247,7 +247,7 @@ class _HomeState extends State<Home> {
                                   decoration: ShapeDecoration(
                                     color: Colors.white,
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(17),
+                                      borderRadius: BorderRadius.circular(10.r),
                                     ),
                                   ),
                                   width: 180.w,
@@ -260,15 +260,15 @@ class _HomeState extends State<Home> {
                                           height: 110.h,
                                           child: ClipRRect(
                                               borderRadius:
-                                                  BorderRadius.circular(10),
+                                                  BorderRadius.only(topLeft: Radius.circular(10.r),topRight: Radius.circular(10.r),),
                                               child: Image.network(
                                                 snapshot.data!.docs[position]
                                                     ["img"],
                                                 fit: BoxFit.cover,
                                               ))),
                                       Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, top: 10),
+                                        padding:  EdgeInsets.only(
+                                            left: 10.w, top: 10.h),
                                         child: Row(
                                           children: [
                                             Text(
@@ -287,14 +287,14 @@ class _HomeState extends State<Home> {
                                             RatingBar.builder(
                                               initialRating: snapshot.data!
                                                   .docs[position]["ratting"],
-                                              minRating: 1,
+                                              minRating: 1.sp,
                                               itemSize: 16.sp,
                                               direction: Axis.horizontal,
                                               allowHalfRating: true,
                                               ignoreGestures: true,
                                               itemCount: 5,
                                               itemPadding: EdgeInsets.symmetric(
-                                                  horizontal: 1),
+                                                  horizontal: 1.w),
                                               itemBuilder: (context, _) => Icon(
                                                 Icons.star,
                                                 color: Color(0xFF477B72),
@@ -307,8 +307,8 @@ class _HomeState extends State<Home> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, top: 5),
+                                        padding:  EdgeInsets.only(
+                                            left: 10.w, top: 5.h),
                                         child: Text(
                                           snapshot.data!.docs[position]
                                               ["courseName"],
@@ -322,8 +322,8 @@ class _HomeState extends State<Home> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, top: 5),
+                                        padding:  EdgeInsets.only(
+                                            left: 10.w, top: 5.h),
                                         child: Row(
                                           children: [
                                             Icon(
@@ -345,8 +345,8 @@ class _HomeState extends State<Home> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, top: 5),
+                                        padding:  EdgeInsets.only(
+                                            left: 10.w, top: 5.h),
                                         child: Text(
                                           "\$ ${snapshot.data!.docs[position]['price']}",
                                           style: GoogleFonts.plusJakartaSans(
@@ -377,7 +377,7 @@ class _HomeState extends State<Home> {
                     }
                   }),
               Padding(
-                padding: const EdgeInsets.only(top: 10, left: 10),
+                padding:  EdgeInsets.only(top: 10.h, left: 10.w),
                 child: Row(
                   children: [
                     Text(
@@ -433,7 +433,7 @@ class _HomeState extends State<Home> {
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, position) {
                             return Padding(
-                              padding: const EdgeInsets.only(left: 20, right: 10),
+                              padding:  EdgeInsets.only(left: 20.w, right: 10.w),
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
@@ -465,7 +465,7 @@ class _HomeState extends State<Home> {
                                   decoration: ShapeDecoration(
                                     color: Colors.white,
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(10.r),
                                     ),
                                   ),
                                   child: Column(
@@ -476,15 +476,15 @@ class _HomeState extends State<Home> {
                                           height: 110.h,
                                           child: ClipRRect(
                                               borderRadius:
-                                              BorderRadius.circular(10),
+                                              BorderRadius.only(topLeft: Radius.circular(10.r),topRight: Radius.circular(10.r),),
                                               child: Image.network(
                                                 snapshot.data!.docs[position]
                                                 ["img"],
                                                 fit: BoxFit.cover,
                                               ))),
                                       Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, top: 10),
+                                        padding:  EdgeInsets.only(
+                                            left: 10.w, top: 10.h),
                                         child: Row(
                                           children: [
                                             Text(
@@ -501,14 +501,14 @@ class _HomeState extends State<Home> {
                                             SizedBox(width: 10.h),
                                             RatingBar.builder(
                                               initialRating: snapshot.data!.docs[position]["ratting"],
-                                              minRating: 1,
+                                              minRating: 1.sp,
                                               itemSize: 17.sp,
                                               direction: Axis.horizontal,
                                               allowHalfRating: true,
                                               ignoreGestures: true,
                                               itemCount: 5,
                                               itemPadding: EdgeInsets.symmetric(
-                                                  horizontal: 1),
+                                                  horizontal: 1.w),
                                               itemBuilder: (context, _) => Icon(
                                                 Icons.star,
                                                 color: Color(0xFF477B72),
@@ -521,8 +521,8 @@ class _HomeState extends State<Home> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, top: 5),
+                                        padding:  EdgeInsets.only(
+                                            left: 10.w, top: 5.h),
                                         child: Text(
                                           snapshot.data!.docs[position]["courseName"].toString(),
                                           style: GoogleFonts.plusJakartaSans(
@@ -535,8 +535,8 @@ class _HomeState extends State<Home> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, top: 5),
+                                        padding:  EdgeInsets.only(
+                                            left: 10.w, top: 5.h),
                                         child: Row(
                                           children: [
                                             Icon(
@@ -557,8 +557,8 @@ class _HomeState extends State<Home> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, top: 5),
+                                        padding:  EdgeInsets.only(
+                                            left: 10.w, top: 5.h),
                                         child: Text(
                                           "\$ ${snapshot.data!.docs[position]['price']}",
                                           style: GoogleFonts.plusJakartaSans(
@@ -589,7 +589,7 @@ class _HomeState extends State<Home> {
                     }),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 10, left: 10),
+                padding:  EdgeInsets.only(top: 10.h, left: 10.w),
                 child: Row(
                   children: [
                     Text(
@@ -644,7 +644,7 @@ class _HomeState extends State<Home> {
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context, position) {
                         return Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 10),
+                          padding:  EdgeInsets.only(left: 20.w, right: 10.h),
                           child: GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
@@ -673,7 +673,7 @@ class _HomeState extends State<Home> {
                               decoration: ShapeDecoration(
                                 color: Colors.white,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(10.r),
                                 ),
                               ),
                               child: Column(
@@ -684,14 +684,14 @@ class _HomeState extends State<Home> {
                                       height: 110.h,
                                       child: ClipRRect(
                                           borderRadius:
-                                          BorderRadius.circular(10),
+                                          BorderRadius.only(topLeft: Radius.circular(10.r),topRight: Radius.circular(10.r),),
                                           child: Image.network(
                                             snapshot.data!.docs[position]
                                             ["img"],
                                             fit: BoxFit.cover,
                                           ))),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 10, top: 10),
+                                    padding:  EdgeInsets.only(left: 10.w, top: 10.h),
                                     child: Row(
                                       children: [
                                         Text(
@@ -707,14 +707,14 @@ class _HomeState extends State<Home> {
                                         SizedBox(width: 10.h),
                                         RatingBar.builder(
                                           initialRating: snapshot.data!.docs[position]["ratting"],
-                                          minRating: 1,
+                                          minRating: 1.sp,
                                           itemSize: 17.sp,
                                           direction: Axis.horizontal,
                                           allowHalfRating: true,
                                           ignoreGestures: true,
                                           itemCount: 5,
                                           itemPadding:
-                                              EdgeInsets.symmetric(horizontal: 1),
+                                              EdgeInsets.symmetric(horizontal: 1.w),
                                           itemBuilder: (context, _) => Icon(
                                             Icons.star,
                                             color: Color(0xFF477B72),
@@ -727,7 +727,7 @@ class _HomeState extends State<Home> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 10, top: 5),
+                                    padding:  EdgeInsets.only(left: 10.w, top: 5.h),
                                     child: Text(
                                       snapshot.data!.docs[position]["courseName"].toString(),
                                       style: GoogleFonts.plusJakartaSans(
@@ -740,7 +740,7 @@ class _HomeState extends State<Home> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 10, top: 5),
+                                    padding:  EdgeInsets.only(left: 10.w, top: 5.h),
                                     child: Row(
                                       children: [
                                         Icon(
@@ -761,7 +761,7 @@ class _HomeState extends State<Home> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 10, top: 5),
+                                    padding:  EdgeInsets.only(left: 10.w, top: 5.h),
                                     child: Text(
                                         "\$ ${snapshot.data!.docs[position]['price']}",
                                       style: GoogleFonts.plusJakartaSans(

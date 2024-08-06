@@ -93,7 +93,7 @@ class _StartcoursevideosState extends State<Startcoursevideos> {
                             children:[ Container(
                               width: 150.w,
                               height: 100.h,
-                              color: Colors.red,
+                              color: Colors.white30,
                               child: Image.network(
                                   widget.Videolist[position]["img"].toString(),fit: BoxFit.cover,),
                             ),

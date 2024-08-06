@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:double_back_to_exit/non_web_preview.dart';
+import 'package:ecommerce/AboutUs.dart';
 import 'package:ecommerce/Ebook.dart';
 import 'package:ecommerce/PersonalChat.dart';
 import 'package:ecommerce/ProfileEdit.dart';
@@ -200,32 +201,34 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                     SizedBox(height: 20.h),
-                    Container(
-                      width: 340.w,
-                      height: 50.h,
-                      decoration: ShapeDecoration(
-                        color: Color(0xFFC6D6D3),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6.r)),
-                      ),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding:  EdgeInsets.only(left: 20.w),
-                            child: Text(
-                              'About Us',
-                              style: GoogleFonts.plusJakartaSans(
-                                textStyle: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.w500,
+                    GestureDetector(onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (_)=> Aboutus()));},
+                      child: Container(
+                        width: 340.w,
+                        height: 50.h,
+                        decoration: ShapeDecoration(
+                          color: Color(0xFFC6D6D3),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6.r)),
+                        ),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding:  EdgeInsets.only(left: 20.w),
+                              child: Text(
+                                'About Us',
+                                style: GoogleFonts.plusJakartaSans(
+                                  textStyle: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          SizedBox(width: 216.w),
-                          Icon(Icons.double_arrow)
-                        ],
+                            SizedBox(width: 216.w),
+                            Icon(Icons.double_arrow)
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(height: 20.h),

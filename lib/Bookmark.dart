@@ -119,7 +119,7 @@ class _BookmarkState extends State<Bookmark> {
                                     decoration: ShapeDecoration(
                                       color: Colors.white,
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(17.r),
+                                        borderRadius: BorderRadius.circular(10.r),
                                       ),
                                     ),
                                     child: Column(
@@ -131,7 +131,7 @@ class _BookmarkState extends State<Bookmark> {
                                             height: 110.h,
                                             child: ClipRRect(
                                                 borderRadius:
-                                                BorderRadius.circular(10.r),
+                                                BorderRadius.only(topLeft: Radius.circular(10.r),topRight: Radius.circular(10.r),),
                                                 child: Image.network(
                                                   snapshot.data!.docs[index]
                                                   ["img"].toString(),
