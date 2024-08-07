@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce/StartCourseVideos.dart';
+import 'package:ecommerce/Home/StartCourseVideos.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:readmore/readmore.dart';
 import 'package:video_player/video_player.dart';
 
-import 'ToatMessage.dart';
+import '../ToatMessage.dart';
 
 class Video extends StatefulWidget {
   final List<dynamic> videopassing;

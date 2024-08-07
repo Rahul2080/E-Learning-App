@@ -1,4 +1,4 @@
-import 'package:ecommerce/Otp.dart';
+import 'package:ecommerce/Phone_pages/Otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -76,8 +76,7 @@ class _PhoneState extends State<Phone> {
                     borderRadius: BorderRadius.circular(30.r),
                   ),
                 ),
-                child: Padding(
-                  padding:  EdgeInsets.only(top: 12.h),
+                child: Center(
                   child: Text(
                     "Send OTP",
                     textAlign: TextAlign.center,

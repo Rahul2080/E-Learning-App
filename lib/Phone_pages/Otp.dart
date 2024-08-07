@@ -1,3 +1,4 @@
+import 'package:ecommerce/Bottomnavigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
@@ -5,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Home.dart';
+import '../Home/Home.dart';
 
 class Otp extends StatefulWidget {
   final String verification;
@@ -40,7 +41,7 @@ class _OtpState extends State<Otp> {
     checkLogin();
     try{
     await auth.signInWithCredential(credentials);
-    Navigator.of(context).push(MaterialPageRoute(builder: (_)=> Home()));
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_)=> Bottomnavigation()),(route)=>(false));
     }
     catch(e){
     Fluttertoast.showToast(msg: "Error");

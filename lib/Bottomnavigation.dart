@@ -1,9 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:ecommerce/Bookmark.dart';
-import 'package:ecommerce/Ebook.dart';
-import 'package:ecommerce/Home.dart';
-import 'package:ecommerce/Profile.dart';
-import 'package:ecommerce/Search.dart';
+import 'package:ecommerce/Bookmark_pages/Bookmark.dart';
+import 'package:ecommerce/Ebook_pages/Ebook.dart';
+import 'package:ecommerce/Home/Home.dart';
+import 'package:ecommerce/Profile_pages/Profile.dart';
+import 'package:ecommerce/Search_pages/Search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

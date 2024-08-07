@@ -1,6 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:ffi';
+
 import 'package:ecommerce/Bottomnavigation.dart';
-import 'package:ecommerce/Phone.dart';
+import 'package:ecommerce/authentication_pages/Forgetpassword.dart';
+import 'package:ecommerce/Home/Home.dart';
+import 'package:ecommerce/authentication_pages/Signup.dart';
+import 'package:ecommerce/ToatMessage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,87 +13,50 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Home.dart';
 import 'Onboard.dart';
-import 'Signin.dart';
-import 'ToatMessage.dart';
+import '../Phone_pages/Phone.dart';
 
-class Signup extends StatefulWidget {
-  const Signup({super.key});
+class Signin extends StatefulWidget {
+  const Signin({super.key});
 
   @override
-  State<Signup> createState() => _SignupState();
+  State<Signin> createState() => _SigninState();
 }
 
-class _SignupState extends State<Signup> {
+bool isVisible = true;
+
+class _SigninState extends State<Signin> {
   var formkey = GlobalKey<FormState>();
-  FirebaseAuth auth = FirebaseAuth.instance;
-  final firestore = FirebaseFirestore.instance.collection('Users');
 
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-  TextEditingController confirmpassword = TextEditingController();
-  TextEditingController name = TextEditingController();
-
-  bool Visible = true;
-  bool passwordVisible = true;
-
+  FirebaseAuth auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController controller = TextEditingController();
     return Scaffold(
       body: SingleChildScrollView(
-        child: Form(
-          key: formkey,
+        child: Form(key:formkey ,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
                 child: SafeArea(
                   child: Text(
-                    'Sign Up',
+                    'Login',
                     style: GoogleFonts.plusJakartaSans(
                       textStyle: TextStyle(
                         color: Colors.black,
-                        fontSize: 30.sp,
+                        fontSize: 32.sp,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 30.h),
-              Padding(
-                padding:  EdgeInsets.only(left: 10.w),
-                child: Text(
-                  'Full Name',
-                  style: GoogleFonts.plusJakartaSans(
-                    textStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding:  EdgeInsets.only(left: 10.w, right: 10.w),
-                child: TextField(
-                  controller: name,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: "Enter Name",
-                    hintStyle: TextStyle(
-                      color: Color(0xFF858383),
-                      fontSize: 15.sp,
-                      fontFamily: 'Plus Jakarta Sans',
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 130.h),
               Padding(
                 padding:  EdgeInsets.only(left: 10.w),
                 child: Text(
@@ -106,6 +73,7 @@ class _SignupState extends State<Signup> {
               Padding(
                 padding:  EdgeInsets.only(left: 10.w, right: 10.w),
                 child: TextFormField(
+
                   controller: email,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -116,18 +84,17 @@ class _SignupState extends State<Signup> {
                       fontFamily: 'Plus Jakarta Sans',
                       fontWeight: FontWeight.w500,
                     ),
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty ||
-                        !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                            .hasMatch(value)) {
-                      return 'Enter a valid email!';
-                    }
-                    return null;
-                  },
+                  ),  validator: (value) {
+                  if (value!.isEmpty ||
+                      !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          .hasMatch(value)) {
+                    return 'Enter a valid email!';
+                  }
+                  return null;
+                },
                 ),
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 40.h),
               Padding(
                 padding:  EdgeInsets.only(left: 10.w),
                 child: Text(
@@ -145,7 +112,7 @@ class _SignupState extends State<Signup> {
                 padding:  EdgeInsets.only(left: 10.w, right: 10.w),
                 child: TextFormField(
                   controller: password,
-                  obscureText: passwordVisible,
+                  obscureText: isVisible,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: "Enter password",
@@ -163,124 +130,86 @@ class _SignupState extends State<Signup> {
                         ),
                         onTap: () {
                           setState(() {
-                            passwordVisible = !passwordVisible;
+                            isVisible = !isVisible;
                           });
                         },
-                      )),
-                  validator: (value) {
-                    if (value!.isEmpty|| value.length<6) {
-                      return 'Enter a valid password!';
-                    }
+                      )),  validator: (value) {
+                  if (value!.isEmpty|| value.length<6) {
+                    return 'Enter a valid password!';
+                  }
 
-                    return null;
-                  },
+                  return null;
+                },
                 ),
               ),
-              SizedBox(height: 20.h),
               Padding(
-                padding:  EdgeInsets.only(left: 10.w),
-                child: Text(
-                  'Confirm Password',
-                  style: GoogleFonts.plusJakartaSans(
-                    textStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.w600,
+                padding:  EdgeInsets.only(left: 250.w, top: 6.h),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => Forgetpassword()));
+                  },
+                  child: Text(
+                    'Forget Password?',
+                    style: GoogleFonts.plusJakartaSans(
+                      textStyle: TextStyle(
+                        color: Color(0xFFF8C657),
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ),
               ),
               Padding(
-                padding:  EdgeInsets.only(left: 10.w, right: 10.w),
-                child: TextFormField(
-                  controller: confirmpassword,
-                  obscureText: Visible,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: "Confirm password",
-                      hintStyle: TextStyle(
-                        color: Color(0xFF858383),
-                        fontSize: 15.sp,
-                        fontFamily: 'Plus Jakarta Sans',
-                        fontWeight: FontWeight.w500,
-                      ),
-                      suffix: InkWell(
-                        child: Icon(
-                          Icons.visibility,
-                          color: Colors.grey,
-                          size: 20.sp,
-                        ),
-                        onTap: () {
-                          setState(
-                            () {
-                              Visible = !Visible;
-                            },
-                          );
-                        },
-                      )),
-                  validator: (value) {
-                    if (value!.isEmpty ||
-                        password.text != confirmpassword.text) {
-                      return 'Enter a valid password!';
-                    }
-
-                    return null;
-                  },
-                ),
-              ),
-              Padding(
-                padding:  EdgeInsets.only(left: 35.w, top: 30.h),
+                padding:  EdgeInsets.only(left: 35.w, top: 60.h),
                 child: GestureDetector(
-                    onTap: () {
-                      final isValid = formkey.currentState?.validate();
-                      if (isValid!) {
-                        auth
-                            .createUserWithEmailAndPassword(
-                                email: email.text, password: password.text)
-                            .then((onValue) {
-                          firestore.doc(auth.currentUser!.uid.toString()).set({
-                            "name": name.text,
-                            "id": auth.currentUser!.uid.toString(),
-                            "email": email.text,
-                            "password": password.text,
-                            "profile":"",
-                            "premium":false
-                          });
-                          checkLogin();
-                          Fluttertoast.showToast(msg: "Succesfully Login");
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                  builder: (context) => Bottomnavigation()),
+                  onTap: () {
+                    final isValid = formkey.currentState?.validate();
+                    if(isValid!) {  auth
+                        .signInWithEmailAndPassword(
+                        email: email.text, password: password.text)
+                        .then((onValue) {
+                      checkLogin();
+                      Fluttertoast.showToast(msg: "Succesfully Login");
+                      email.clear();
+                      password.clear();
+                      Navigator.of(context).
+                      pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (context) => Bottomnavigation()),
                               (route) => false);
-                        }).onError((error, stackTrace) => ToastMessage()
-                                .toastmessage(message: error.toString()));
-                      }
-                      formkey.currentState?.save();
-                    },
-                    child: Container(
-                      width: 316.w,
-                      height: 57.h,
-                      padding:  EdgeInsets.symmetric(vertical: 17.h),
-                      decoration: ShapeDecoration(
-                        color: Color(0xD3F8C657),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.r),
-                        ),
+                    }).onError((error, stackTrace) => ToastMessage()
+                        .toastmessage(message: error.toString()));   }
+
+
+                    formkey.currentState?.save();
+                  },
+                  child: Container(
+                    width: 316.w,
+                    height: 57.h,
+                    padding:  EdgeInsets.symmetric(vertical: 17.h),
+                    decoration: ShapeDecoration(
+                      color: Color(0xD3F8C657),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.r),
                       ),
-                      child: Padding(
-                        padding:  EdgeInsets.only(left: 140.w),
-                        child: Text(
-                          'LOGIN',
-                          style: GoogleFonts.plusJakartaSans(
-                            textStyle: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
+                    ),
+                    child: Padding(
+                      padding:  EdgeInsets.only(left: 140.w),
+                      child: Text(
+                        'LOGIN',
+                        style: GoogleFonts.plusJakartaSans(
+                          textStyle: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ),
-                    )),
+                    ),
+                  ),
+                ),
               ),
               SizedBox(
                 height: 20.h,
@@ -290,7 +219,7 @@ class _SignupState extends State<Signup> {
                   SizedBox(
                       width: 130.w,
                       child: Divider(
-                        thickness: 1.sp,
+                        thickness: 1,
                         color: Colors.grey,
                       )),
                   SizedBox(width: 5.w),
@@ -338,19 +267,15 @@ class _SignupState extends State<Signup> {
                       ),
                     ),
                     SizedBox(width: 20.w),
-                    GestureDetector(
-                      onTap: () {
-                        signInwithGoogle();
-                      },
+                    GestureDetector(onTap: (){signInwithGoogle();},
                       child: Container(
                         width: 82.w,
                         height: 48.h,
-                        padding:  EdgeInsets.all(15.r),
+                        padding:  EdgeInsets.all(15.sp),
                         decoration: ShapeDecoration(
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
-                            side:
-                                BorderSide(width: 1.w, color: Color(0xFFDDDDDD)),
+                            side: BorderSide(width: 1.w, color: Color(0xFFDDDDDD)),
                             borderRadius: BorderRadius.circular(10.r),
                           ),
                         ),
@@ -363,7 +288,7 @@ class _SignupState extends State<Signup> {
                 ),
               ),
               Padding(
-                padding:  EdgeInsets.only(left: 70.w, top: 40.h),
+                padding:  EdgeInsets.only(left: 60.w, top: 90.h),
                 child: Row(
                   children: [
                     Text(
@@ -379,10 +304,10 @@ class _SignupState extends State<Signup> {
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (_) => Signin()));
+                            .push(MaterialPageRoute(builder: (_) => Signup()));
                       },
                       child: Text(
-                        'Login Here',
+                        'Sign Up Here',
                         style: GoogleFonts.plusJakartaSans(
                           textStyle: TextStyle(
                             color: Color(0xFFF8C657),
@@ -401,27 +326,25 @@ class _SignupState extends State<Signup> {
       ),
     );
   }
-
   Future<String?> signInwithGoogle() async {
     checkLogin();
     try {
       final GoogleSignInAccount? googleSignInAccount =
-          await googleSignIn.signIn();
+      await googleSignIn.signIn();
       final GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount!.authentication;
+      await googleSignInAccount!.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
       await auth.signInWithCredential(credential).then((onValue) =>
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (_) => Home())));
+              .pushAndRemoveUntil(MaterialPageRoute(builder: (_) => Bottomnavigation()),(route)=>(false)));
     } on FirebaseAuthException catch (e) {
       print(e.message);
       throw e;
     }
   }
-
   void checkLogin()async{
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();

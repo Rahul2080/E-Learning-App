@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:double_back_to_exit/non_web_preview.dart';
-import 'package:ecommerce/PdfReader.dart';
-import 'package:ecommerce/PersonalChat.dart';
+import 'package:ecommerce/Ebook_pages/PdfReader.dart';
+import 'package:ecommerce/Profile_pages/PersonalChat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'Cart.dart';
+import '../Home/Cart.dart';
 
 class Ebook extends StatefulWidget {
   const Ebook({super.key});

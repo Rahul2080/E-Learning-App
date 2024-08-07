@@ -6,8 +6,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'Cart.dart';
-import 'Video.dart';
+import '../Home/Cart.dart';
+import '../Home/Video.dart';
 
 class Bookmark extends StatefulWidget {
   const Bookmark({super.key});

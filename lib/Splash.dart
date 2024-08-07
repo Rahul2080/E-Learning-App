@@ -1,6 +1,6 @@
 import 'package:ecommerce/Bottomnavigation.dart';
-import 'package:ecommerce/Home.dart';
-import 'package:ecommerce/Onboard.dart';
+import 'package:ecommerce/Home/Home.dart';
+import 'package:ecommerce/authentication_pages/Onboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';

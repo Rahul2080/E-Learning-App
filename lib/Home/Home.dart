@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:double_back_to_exit/non_web_preview.dart';
-import 'package:ecommerce/Cart.dart';
-import 'package:ecommerce/Categories.dart';
-import 'package:ecommerce/Favourates.dart';
-import 'package:ecommerce/Video.dart';
+import 'package:ecommerce/Home/Cart.dart';
+import 'package:ecommerce/Home/Categories.dart';
+import 'package:ecommerce/Home/Favourates.dart';
+import 'package:ecommerce/Home/Video.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';

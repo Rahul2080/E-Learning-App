@@ -6,7 +6,7 @@ import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'ToatMessage.dart';
+import '../ToatMessage.dart';
 
 class Personalchat extends StatefulWidget {
   const Personalchat({super.key});

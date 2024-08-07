@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce/StartCourseVideos.dart';
-import 'package:ecommerce/Video.dart';
+import 'package:ecommerce/Home/StartCourseVideos.dart';
+import 'package:ecommerce/Home/Video.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expanded_tile/flutter_expanded_tile.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';

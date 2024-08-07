@@ -1,17 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:double_back_to_exit/non_web_preview.dart';
-import 'package:ecommerce/AboutUs.dart';
-import 'package:ecommerce/Ebook.dart';
-import 'package:ecommerce/PersonalChat.dart';
-import 'package:ecommerce/ProfileEdit.dart';
-import 'package:ecommerce/Signin.dart';
+import 'package:ecommerce/Profile_pages/AboutUs.dart';
+import 'package:ecommerce/Ebook_pages/Ebook.dart';
+import 'package:ecommerce/Profile_pages/PersonalChat.dart';
+import 'package:ecommerce/Profile_pages/ProfileEdit.dart';
+import 'package:ecommerce/authentication_pages/Signin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Cart.dart';
+import '../Home/Cart.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
