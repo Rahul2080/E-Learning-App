@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/Bottomnavigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Home/Home.dart';
+import '../ToatMessage.dart';
 
 class Otp extends StatefulWidget {
   final String verification;
@@ -18,6 +20,7 @@ class Otp extends StatefulWidget {
 
 class _OtpState extends State<Otp> {
   FirebaseAuth auth = FirebaseAuth.instance;
+  final firestore = FirebaseFirestore.instance.collection('Users');
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +43,21 @@ class _OtpState extends State<Otp> {
     smsCode: verificationCode);
     checkLogin();
     try{
-    await auth.signInWithCredential(credentials);
-    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_)=> Bottomnavigation()),(route)=>(false));
+    await auth.signInWithCredential(credentials).then((onValue){firestore.doc(auth.currentUser!.uid.toString()).set({
+      "name": "",
+      "id": auth.currentUser!.uid.toString(),
+      "email":"",
+      "password": "",
+      "profile":"",
+      "premium":false
+    });Navigator.of(context)
+        .pushAndRemoveUntil(MaterialPageRoute(builder: (_) => Bottomnavigation()),(route)=>(false)).onError((error, stackTrace) => ToastMessage()
+        .toastmessage(message: error.toString()));
+
+
+
+    });
+
     }
     catch(e){
     Fluttertoast.showToast(msg: "Error");

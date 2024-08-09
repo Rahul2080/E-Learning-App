@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +13,7 @@ import '../ToatMessage.dart';
 class Profileedit extends StatefulWidget {
   final int index;
 
+
   const Profileedit({super.key, required this.index});
 
   @override
@@ -19,6 +21,7 @@ class Profileedit extends StatefulWidget {
 }
 
 class _ProfileeditState extends State<Profileedit> {
+  FirebaseAuth auth = FirebaseAuth.instance;
   File? image;
   final picker = ImagePicker();
 
@@ -123,10 +126,10 @@ class _ProfileeditState extends State<Profileedit> {
                                         image!.absolute,
                                         fit: BoxFit.cover,
                                       )
-                                    : Icon(
-                                        Icons.photo,
-                                        size: 50.sp,
-                                      ),
+                                    : Image.network(
+                                  snapshot.data!.docs[widget.index]["profile"].toString(),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
@@ -268,9 +271,9 @@ class _ProfileeditState extends State<Profileedit> {
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () {
+                                  print("hello"+controller.text);
                                   ref
-                                      .doc(snapshot.data!.docs[0]["id"]
-                                          .toString())
+                                      .doc(auth.currentUser!.uid.toString())
                                       .update({"name": controller.text}).then(
                                           (onValue) {
                                     Fluttertoast.showToast(

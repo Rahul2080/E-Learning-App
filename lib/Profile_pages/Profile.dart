@@ -109,7 +109,7 @@ class _ProfileState extends State<Profile> {
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => Profileedit(index:index ,)));
+                            MaterialPageRoute(builder: (_) => Profileedit(index:index  ,)));
                       },
                       child: Container(
                         width: 340.w,

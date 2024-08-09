@@ -38,7 +38,8 @@ class _SigninState extends State<Signin> {
     TextEditingController controller = TextEditingController();
     return Scaffold(
       body: SingleChildScrollView(
-        child: Form(key:formkey ,
+        child: Form(
+          key: formkey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -58,7 +59,7 @@ class _SigninState extends State<Signin> {
               ),
               SizedBox(height: 130.h),
               Padding(
-                padding:  EdgeInsets.only(left: 10.w),
+                padding: EdgeInsets.only(left: 10.w),
                 child: Text(
                   'Email',
                   style: GoogleFonts.plusJakartaSans(
@@ -71,9 +72,8 @@ class _SigninState extends State<Signin> {
                 ),
               ),
               Padding(
-                padding:  EdgeInsets.only(left: 10.w, right: 10.w),
+                padding: EdgeInsets.only(left: 10.w, right: 10.w),
                 child: TextFormField(
-
                   controller: email,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -84,19 +84,20 @@ class _SigninState extends State<Signin> {
                       fontFamily: 'Plus Jakarta Sans',
                       fontWeight: FontWeight.w500,
                     ),
-                  ),  validator: (value) {
-                  if (value!.isEmpty ||
-                      !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                          .hasMatch(value)) {
-                    return 'Enter a valid email!';
-                  }
-                  return null;
-                },
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty ||
+                        !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(value)) {
+                      return 'Enter a valid email!';
+                    }
+                    return null;
+                  },
                 ),
               ),
               SizedBox(height: 40.h),
               Padding(
-                padding:  EdgeInsets.only(left: 10.w),
+                padding: EdgeInsets.only(left: 10.w),
                 child: Text(
                   'Password',
                   style: GoogleFonts.plusJakartaSans(
@@ -109,7 +110,7 @@ class _SigninState extends State<Signin> {
                 ),
               ),
               Padding(
-                padding:  EdgeInsets.only(left: 10.w, right: 10.w),
+                padding: EdgeInsets.only(left: 10.w, right: 10.w),
                 child: TextFormField(
                   controller: password,
                   obscureText: isVisible,
@@ -133,17 +134,18 @@ class _SigninState extends State<Signin> {
                             isVisible = !isVisible;
                           });
                         },
-                      )),  validator: (value) {
-                  if (value!.isEmpty|| value.length<6) {
-                    return 'Enter a valid password!';
-                  }
+                      )),
+                  validator: (value) {
+                    if (value!.isEmpty || value.length < 6) {
+                      return 'Enter a valid password!';
+                    }
 
-                  return null;
-                },
+                    return null;
+                  },
                 ),
               ),
               Padding(
-                padding:  EdgeInsets.only(left: 250.w, top: 6.h),
+                padding: EdgeInsets.only(left: 250.w, top: 6.h),
                 child: GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(
@@ -162,33 +164,33 @@ class _SigninState extends State<Signin> {
                 ),
               ),
               Padding(
-                padding:  EdgeInsets.only(left: 35.w, top: 60.h),
+                padding: EdgeInsets.only(left: 35.w, top: 60.h),
                 child: GestureDetector(
                   onTap: () {
                     final isValid = formkey.currentState?.validate();
-                    if(isValid!) {  auth
-                        .signInWithEmailAndPassword(
-                        email: email.text, password: password.text)
-                        .then((onValue) {
-                      checkLogin();
-                      Fluttertoast.showToast(msg: "Succesfully Login");
-                      email.clear();
-                      password.clear();
-                      Navigator.of(context).
-                      pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (context) => Bottomnavigation()),
-                              (route) => false);
-                    }).onError((error, stackTrace) => ToastMessage()
-                        .toastmessage(message: error.toString()));   }
-
+                    if (isValid!) {
+                      auth
+                          .signInWithEmailAndPassword(
+                              email: email.text, password: password.text)
+                          .then((onValue) {
+                        checkLogin();
+                        Fluttertoast.showToast(msg: "Succesfully Login");
+                        email.clear();
+                        password.clear();
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (context) => Bottomnavigation()),
+                            (route) => false);
+                      }).onError((error, stackTrace) => ToastMessage()
+                              .toastmessage(message: error.toString()));
+                    }
 
                     formkey.currentState?.save();
                   },
                   child: Container(
                     width: 316.w,
                     height: 57.h,
-                    padding:  EdgeInsets.symmetric(vertical: 17.h),
+                    padding: EdgeInsets.symmetric(vertical: 17.h),
                     decoration: ShapeDecoration(
                       color: Color(0xD3F8C657),
                       shape: RoundedRectangleBorder(
@@ -196,7 +198,7 @@ class _SigninState extends State<Signin> {
                       ),
                     ),
                     child: Padding(
-                      padding:  EdgeInsets.only(left: 140.w),
+                      padding: EdgeInsets.only(left: 140.w),
                       child: Text(
                         'LOGIN',
                         style: GoogleFonts.plusJakartaSans(
@@ -243,19 +245,24 @@ class _SigninState extends State<Signin> {
                 ],
               ),
               Padding(
-                padding:  EdgeInsets.only(left: 100.w, top: 30.h),
+                padding: EdgeInsets.only(left: 100.w, top: 30.h),
                 child: Row(
                   children: [
-                    GestureDetector(onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (_)=> Phone()));},
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (_) => Phone()));
+                      },
                       child: Container(
                         width: 82.w,
                         height: 48.h,
-                        padding:  EdgeInsets.symmetric(
+                        padding: EdgeInsets.symmetric(
                             horizontal: 15.w, vertical: 11.h),
                         decoration: ShapeDecoration(
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
-                            side: BorderSide(width: 1.w, color: Color(0xFFDDDDDD)),
+                            side: BorderSide(
+                                width: 1.w, color: Color(0xFFDDDDDD)),
                             borderRadius: BorderRadius.circular(10.r),
                           ),
                         ),
@@ -267,15 +274,19 @@ class _SigninState extends State<Signin> {
                       ),
                     ),
                     SizedBox(width: 20.w),
-                    GestureDetector(onTap: (){signInwithGoogle();},
+                    GestureDetector(
+                      onTap: () {
+                        signInwithGoogle();
+                      },
                       child: Container(
                         width: 82.w,
                         height: 48.h,
-                        padding:  EdgeInsets.all(15.sp),
+                        padding: EdgeInsets.all(15.sp),
                         decoration: ShapeDecoration(
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
-                            side: BorderSide(width: 1.w, color: Color(0xFFDDDDDD)),
+                            side: BorderSide(
+                                width: 1.w, color: Color(0xFFDDDDDD)),
                             borderRadius: BorderRadius.circular(10.r),
                           ),
                         ),
@@ -288,7 +299,7 @@ class _SigninState extends State<Signin> {
                 ),
               ),
               Padding(
-                padding:  EdgeInsets.only(left: 60.w, top: 90.h),
+                padding: EdgeInsets.only(left: 60.w, top: 90.h),
                 child: Row(
                   children: [
                     Text(
@@ -326,27 +337,40 @@ class _SigninState extends State<Signin> {
       ),
     );
   }
+
   Future<String?> signInwithGoogle() async {
     checkLogin();
     try {
       final GoogleSignInAccount? googleSignInAccount =
-      await googleSignIn.signIn();
+          await googleSignIn.signIn();
       final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount!.authentication;
+          await googleSignInAccount!.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
-      await auth.signInWithCredential(credential).then((onValue) =>
-          Navigator.of(context)
-              .pushAndRemoveUntil(MaterialPageRoute(builder: (_) => Bottomnavigation()),(route)=>(false)));
+      await auth.signInWithCredential(credential).then((onValue) {
+        auth
+            .signInWithEmailAndPassword(
+                email:auth.currentUser!.displayName.toString(), password: password.text)
+            .then((onValue) {
+          checkLogin();
+          Fluttertoast.showToast(msg: "Succesfully Login");
+          email.clear();
+          password.clear();
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => Bottomnavigation()),
+              (route) => false);
+        }).onError((error, stackTrace) =>
+                ToastMessage().toastmessage(message: error.toString()));
+      });
     } on FirebaseAuthException catch (e) {
       print(e.message);
       throw e;
     }
   }
-  void checkLogin()async{
 
+  void checkLogin() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('Token', true);
   }

@@ -412,10 +412,21 @@ class _SignupState extends State<Signup> {
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
+
+
+
       );
-      await auth.signInWithCredential(credential).then((onValue) =>
+      await auth.signInWithCredential(credential).then((onValue) {  firestore.doc(auth.currentUser!.uid.toString()).set({
+        "name": auth.currentUser!.displayName.toString(),
+        "id": auth.currentUser!.uid.toString(),
+        "email":auth.currentUser!.email.toString(),
+        "password": password.text,
+        "profile":auth.currentUser!.photoURL.toString(),
+        "premium":false
+      });});
           Navigator.of(context)
-              .pushAndRemoveUntil(MaterialPageRoute(builder: (_) => Bottomnavigation()),(route)=>(false)));
+              .pushAndRemoveUntil(MaterialPageRoute(builder: (_) => Bottomnavigation()),(route)=>(false))..onError((error, stackTrace) => ToastMessage()
+              .toastmessage(message: error.toString()));
     } on FirebaseAuthException catch (e) {
       print(e.message);
       throw e;
