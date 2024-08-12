@@ -349,21 +349,15 @@ class _SigninState extends State<Signin> {
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
-      await auth.signInWithCredential(credential).then((onValue) {
-        auth
-            .signInWithEmailAndPassword(
-                email:auth.currentUser!.displayName.toString(), password: password.text)
-            .then((onValue) {
-          checkLogin();
-          Fluttertoast.showToast(msg: "Succesfully Login");
-          email.clear();
-          password.clear();
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => Bottomnavigation()),
-              (route) => false);
+      await auth.signInWithCredential(credential).then((onValue) async {
+        Fluttertoast.showToast(msg: "Succesfully login");
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => Bottomnavigation()),
+                (route) => false);
+
         }).onError((error, stackTrace) =>
-                ToastMessage().toastmessage(message: error.toString()));
-      });
+          ToastMessage().toastmessage(message: error.toString()));
+
     } on FirebaseAuthException catch (e) {
       print(e.message);
       throw e;
