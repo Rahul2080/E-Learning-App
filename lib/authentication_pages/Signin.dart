@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/Bottomnavigation.dart';
 import 'package:ecommerce/authentication_pages/Forgetpassword.dart';
 import 'package:ecommerce/Home/Home.dart';
@@ -32,6 +33,7 @@ class _SigninState extends State<Signin> {
   TextEditingController password = TextEditingController();
   FirebaseAuth auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
+  final firestore = FirebaseFirestore.instance.collection('Users');
 
   @override
   Widget build(BuildContext context) {
@@ -350,6 +352,14 @@ class _SigninState extends State<Signin> {
         idToken: googleSignInAuthentication.idToken,
       );
       await auth.signInWithCredential(credential).then((onValue) async {
+        await firestore.doc(auth.currentUser!.uid.toString()).set({
+          "name": auth.currentUser!.displayName.toString(),
+          "id": auth.currentUser!.uid.toString(),
+          "email": auth.currentUser!.email.toString(),
+          "password": password.text,
+          "profile": auth.currentUser!.photoURL.toString(),
+          "premium": false
+        });
         Fluttertoast.showToast(msg: "Succesfully login");
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => Bottomnavigation()),

@@ -16,6 +16,7 @@ class Personalchat extends StatefulWidget {
 }
 
 class _PersonalchatState extends State<Personalchat> {
+  var formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -29,48 +30,76 @@ class _PersonalchatState extends State<Personalchat> {
         .doc(auth.currentUser!.uid.toString())
         .collection("chat")
         .snapshots();
-    return Scaffold(
+    return Scaffold(     appBar: AppBar(
+      leadingWidth: 40.w,
+      toolbarHeight: 75.h,
+      title: Row(
+        children: [
+          CircleAvatar(
+            radius: 30.r,
+          ),
+          SizedBox(width: 10.w),
+          Text(
+            'Jackie',
+            style: GoogleFonts.notoSans(
+              textStyle: TextStyle(
+                color: Colors.black,
+                fontSize: 17.82.sp,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
       bottomSheet: Padding(
-        padding:  EdgeInsets.only(left: 20.w, bottom: 20.h),
+        padding:  EdgeInsets.only(left: 20.w,bottom: 20.h ),
         child: Row(
           children: [
-            Container(
-              width: 290.w,
-              height: 40.h,
-              decoration: ShapeDecoration(
-                color: Colors.grey.shade100,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.r),
+            Form(key: formkey,
+              child: Container(
+                width: 290.w,
+                height: 50.h,
+                decoration: ShapeDecoration(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.r),
+                  ),
                 ),
-              ),
-              child: TextField(
-                controller: messagecontroller,
-                decoration: InputDecoration(
-                    hintText: "Message",
-                    border: InputBorder.none,
-                    prefixIcon: Icon(
-                      Icons.emoji_emotions_outlined,
-                      size: 30.sp,
-                    )),
+                child: TextFormField(
+                  controller: messagecontroller,
+                  decoration: InputDecoration(
+                      hintText: "Message",
+                      border: InputBorder.none,
+                      prefixIcon: Icon(
+                        Icons.emoji_emotions_outlined,
+                        size: 30.sp,
+                      )),validator: (value){
+                  if (value!.isEmpty){
+                    return '';
+                  }
+                  return null;
+                  },
+                ),
               ),
             ),
             SizedBox(width: 20.w),
-            IconButton(
-              icon: Icon(
+            GestureDetector(
+             child: Icon(
                 Icons.send,
                 color: Colors.blue,
                 size: 28.sp,
               ),
-              onPressed: () {
+              onTap: () { if(formkey.currentState!.validate()){
                 final id = DateTime.now().microsecondsSinceEpoch.toString();
                 firestore
                     .doc(id)
                     .set({"message": messagecontroller.text, "id": id,"response": ""}).then(
                         (onValue) {
-                  messagecontroller.clear();
-                 // ToastMessage().toastmessage(message: "");
-                }).onError((error, StackTrace) =>
-                        ToastMessage().toastmessage(message: error.toString()));
+                      messagecontroller.clear();
+                    }).onError((error, StackTrace) =>
+                    ToastMessage().toastmessage(message: error.toString()));
+              }
+
               },
             )
           ],
@@ -78,28 +107,7 @@ class _PersonalchatState extends State<Personalchat> {
       ),
 
 
-      appBar: AppBar(
-        leadingWidth: 40.w,
-        toolbarHeight: 75.h,
-        title: Row(
-          children: [
-            CircleAvatar(
-              radius: 30.r,
-            ),
-            SizedBox(width: 10.w),
-            Text(
-              'Jackie',
-              style: GoogleFonts.notoSans(
-                textStyle: TextStyle(
-                  color: Colors.black,
-                  fontSize: 17.82.sp,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+
       body: Column(
         children: [
           Expanded(
